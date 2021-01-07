@@ -12,6 +12,7 @@ import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.RoutingTable;
 import org.openhim.mediator.engine.messages.FinishRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
+import tz.go.moh.him.hfr.mediator.orchestrator.EpicorFacilityOrchestrator;
 import tz.go.moh.him.hfr.mediator.orchestrator.FacilityOrchestrator;
 
 import java.io.File;
@@ -49,7 +50,7 @@ public class FacilityOrchestratorTest {
     public void testMediatorHTTPRequest() throws Exception {
         new JavaTestKit(system) {{
             final MediatorConfig testConfig = loadConfig(null);
-            final ActorRef defaultOrchestrator = system.actorOf(Props.create(FacilityOrchestrator.class, testConfig));
+            final ActorRef defaultOrchestrator = system.actorOf(Props.create(EpicorFacilityOrchestrator.class, testConfig));
 
             InputStream stream = FacilityOrchestratorTest.class.getClassLoader().getResourceAsStream("request.json");
 

@@ -6,31 +6,39 @@ import akka.event.LoggingAdapter;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.openhim.mediator.engine.*;
-import tz.go.moh.him.hfr.mediator.orchestrator.FacilityOrchestrator;
+import tz.go.moh.him.hfr.mediator.orchestrator.EpicorFacilityOrchestrator;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Represents the main application.
+ */
 public class MediatorMain {
 
+    /**
+     * Builds the routing table.
+     *
+     * @return Returns the routing table.
+     * @throws RoutingTable.RouteAlreadyMappedException
+     */
     private static RoutingTable buildRoutingTable() throws RoutingTable.RouteAlreadyMappedException {
         RoutingTable routingTable = new RoutingTable();
 
-        //TODO Configure routes here
-        //...
-        routingTable.addRoute("/hfr", FacilityOrchestrator.class);
+        routingTable.addRoute("/hfr-epicor", EpicorFacilityOrchestrator.class);
 
         return routingTable;
     }
 
+    /**
+     * Builds the startup actors configuration.
+     *
+     * @return Returns the startup actors configuration.
+     */
     private static StartupActorsConfig buildStartupActorsConfig() {
         StartupActorsConfig startupActors = new StartupActorsConfig();
-
-        //TODO Add own startup actors here
-        //...
-
         return startupActors;
     }
 

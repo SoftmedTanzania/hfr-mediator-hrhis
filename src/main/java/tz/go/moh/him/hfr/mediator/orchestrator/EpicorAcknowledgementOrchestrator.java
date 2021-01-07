@@ -5,12 +5,19 @@ import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import com.google.gson.Gson;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.http.HttpStatus;
+import org.json.JSONObject;
 import org.openhim.mediator.engine.MediatorConfig;
+import org.openhim.mediator.engine.messages.FinishRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
-import tz.go.moh.him.hfr.mediator.domain.EpicorHfrRequest;
-import tz.go.moh.him.hfr.mediator.domain.HfrRequest;
+import org.openhim.mediator.engine.messages.MediatorHTTPResponse;
+import tz.go.moh.him.hfr.mediator.domain.EpicorAck;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,6 +33,11 @@ public class EpicorAcknowledgementOrchestrator extends UntypedActor {
      * The mediator configuration.
      */
     private final MediatorConfig config;
+
+    /**
+     * Represents an EPICOR ACK.
+     */
+    private EpicorAck epicorAck;
 
     /**
      * Represents a mediator request.
@@ -50,31 +62,67 @@ public class EpicorAcknowledgementOrchestrator extends UntypedActor {
     @Override
     public void onReceive(Object msg) throws Exception {
         if (msg instanceof MediatorHTTPRequest) {
+            this.workingRequest = (MediatorHTTPRequest) msg;
+            this.epicorAck = new Gson().fromJson(((MediatorHTTPRequest) msg).getBody(), EpicorAck.class);
+            obtainOpenHIMTransactionByTransactionId(epicorAck.getTransactionIdNumber());
+        } else if (msg instanceof MediatorHTTPResponse) {
+            this.log.info("Received feedback from core");
+            this.log.info("Core Response code = " + ((MediatorHTTPResponse) msg).getStatusCode());
+            this.log.info("Core Response body = " + ((MediatorHTTPResponse) msg).getBody());
+            updateOpenHIMTransactionByTransactionId(new JSONObject(((MediatorHTTPResponse) msg).getBody()));
 
-            workingRequest = (MediatorHTTPRequest) msg;
+            FinishRequest finishRequest = new FinishRequest("", "text/plain", HttpStatus.SC_OK);
 
-            log.info("Received request: " + workingRequest.getHost() + " " + workingRequest.getMethod() + " " + workingRequest.getPath());
-
-            Gson gson = new Gson();
-
-            HfrRequest hfrRequest = gson.fromJson(workingRequest.getBody(), HfrRequest.class);
-
-            EpicorHfrRequest epicorHfrRequest = new EpicorHfrRequest(hfrRequest);
-
-            epicorHfrRequest.setTransactionIdNumber(workingRequest.getHeaders().get("x-openhim-transactionid"));
-
-            Map<String, String> headers = new HashMap<>();
-
-            headers.put("Content-Type", "application/json");
-
-            MediatorHTTPRequest epicorRequest = new MediatorHTTPRequest(workingRequest.getRequestHandler(), getSelf(), "Sending data to EPICOR", HfrRequest.OPERATION_MAP.get(hfrRequest.getPostOrUpdate()),
-                    config.getProperty("epicor.scheme"), config.getProperty("epicor.host"), Integer.parseInt(config.getProperty("epicor.api.port")), config.getProperty("epicor.api.path"),
-                    gson.toJson(epicorHfrRequest), headers, null);
-
-            ActorSelection httpConnector = getContext().actorSelection(config.userPathFor("http-connector"));
-            httpConnector.tell(epicorRequest, getSelf());
-        } else {
-            unhandled(msg);
+            (this.workingRequest).getRequestHandler().tell(finishRequest, getSelf());
         }
+    }
+
+    private void obtainOpenHIMTransactionByTransactionId(String transactionId) {
+
+        Map<String, String> headers = new HashMap<>();
+
+        headers.put("Content-Type", "application/json");
+
+        List<Pair<String, String>> params = new ArrayList<>();
+
+        MediatorHTTPRequest obtainOpenHIMTransactionRequest = new MediatorHTTPRequest(
+                (this.workingRequest).getRequestHandler(), getSelf(), "Obtaining OpenHIM Transaction by transactionId", "GET", this.config.getProperty("core.scheme"),
+                this.config.getProperty("core.host"), Integer.parseInt(config.getProperty("core.api.port")), "/transactions/" + transactionId,
+                null, headers, params
+        );
+
+        ActorSelection coreApiConnector = getContext().actorSelection(config.userPathFor("core-api-connector"));
+
+        coreApiConnector.tell(obtainOpenHIMTransactionRequest, getSelf());
+    }
+
+    private void updateOpenHIMTransactionByTransactionId(JSONObject transaction) {
+        this.log.info("Updating OpenHIM Transaction with ELMIS ACK");
+        if (this.epicorAck.getStatus().equals("Success")) {
+            transaction.getJSONObject("response").put("status", HttpStatus.SC_OK);
+            transaction.put("status", "Successful");
+        } else {
+            transaction.getJSONObject("response").put("status", HttpStatus.SC_BAD_REQUEST);
+            transaction.put("status", "Failed");
+        }
+        transaction.getJSONObject("response").put("body", new Gson().toJson(this.epicorAck));
+        transaction.getJSONObject("response").put("timestamp", new Timestamp(System.currentTimeMillis()));
+
+
+        Map<String, String> headers = new HashMap<>();
+
+        headers.put("Content-Type", "application/json");
+
+        List<Pair<String, String>> params = new ArrayList<>();
+
+        MediatorHTTPRequest obtainOpenHIMTransactionRequest = new MediatorHTTPRequest(
+                (this.workingRequest).getRequestHandler(), getSelf(), "Updating OpenHIM Transaction by transactionId", "PUT", this.config.getProperty("epicor.scheme"),
+                this.config.getProperty("core.host"), Integer.parseInt(this.config.getProperty("core.api.port")), "/transactions/" + this.epicorAck.getTransactionIdNumber(),
+                transaction.toString(), headers, params
+        );
+
+        ActorSelection coreApiConnector = getContext().actorSelection(config.userPathFor("core-api-connector"));
+
+        coreApiConnector.tell(obtainOpenHIMTransactionRequest, getSelf());
     }
 }

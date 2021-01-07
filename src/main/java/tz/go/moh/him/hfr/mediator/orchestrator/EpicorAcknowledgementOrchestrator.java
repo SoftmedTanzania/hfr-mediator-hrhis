@@ -67,8 +67,8 @@ public class EpicorAcknowledgementOrchestrator extends UntypedActor {
             obtainOpenHIMTransactionByTransactionId(epicorAck.getTransactionIdNumber());
         } else if (msg instanceof MediatorHTTPResponse) {
             this.log.info("Received feedback from core");
-            this.log.info("Core Response code = " + ((MediatorHTTPResponse) msg).getStatusCode());
-            this.log.info("Core Response body = " + ((MediatorHTTPResponse) msg).getBody());
+            this.log.debug("Core Response code = " + ((MediatorHTTPResponse) msg).getStatusCode());
+            this.log.debug("Core Response body = " + ((MediatorHTTPResponse) msg).getBody());
             updateOpenHIMTransactionByTransactionId(new JSONObject(((MediatorHTTPResponse) msg).getBody()));
 
             FinishRequest finishRequest = new FinishRequest("", "text/plain", HttpStatus.SC_OK);
@@ -77,6 +77,11 @@ public class EpicorAcknowledgementOrchestrator extends UntypedActor {
         }
     }
 
+    /**
+     * Retrieves the OpenHIM transaction by id.
+     *
+     * @param transactionId The transaction id.
+     */
     private void obtainOpenHIMTransactionByTransactionId(String transactionId) {
 
         Map<String, String> headers = new HashMap<>();
@@ -96,6 +101,11 @@ public class EpicorAcknowledgementOrchestrator extends UntypedActor {
         coreApiConnector.tell(obtainOpenHIMTransactionRequest, getSelf());
     }
 
+    /**
+     * Updates the OpenHIM transaction status.
+     *
+     * @param transaction The transaction.
+     */
     private void updateOpenHIMTransactionByTransactionId(JSONObject transaction) {
         this.log.info("Updating OpenHIM Transaction with ELMIS ACK");
         if (this.epicorAck.getStatus().equals("Success")) {

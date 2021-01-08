@@ -61,7 +61,13 @@ public class FacilityOrchestrator extends UntypedActor {
             Map<String, String> headers = new HashMap<>();
 
             headers.put("Content-Type", "application/json");
-            headers.put("Authorization", String.format("Basic: %s", Base64.encodeBase64String(String.format("%s:%s", config.getProperty("destination.username"), config.getProperty("destination.password")).getBytes())));
+
+            if (Boolean.TRUE.toString().equals(config.getProperty("destination.auth.local.enabled"))) {
+                headers.put("Authorization", String.format("Basic: %s", Base64.encodeBase64String(String.format("%s:%s", config.getProperty("destination.auth.local.username"), config.getProperty("destination.auth.local.password")).getBytes())));
+            } else if (Boolean.TRUE.toString().equals(config.getProperty("destination.auth.external.enabled"))) {
+                headers.put("Authorization", workingRequest.getHeaders().get("Authorization"));
+            }
+
 
             List<Pair<String, String>> parameters = new ArrayList<>();
 

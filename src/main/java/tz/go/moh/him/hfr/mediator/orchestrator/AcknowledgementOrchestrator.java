@@ -67,13 +67,13 @@ public class AcknowledgementOrchestrator extends UntypedActor {
             obtainOpenHIMTransactionByTransactionId(ack.getTransactionIdNumber());
         } else if (msg instanceof MediatorHTTPResponse) {
             this.log.info("Received feedback from core");
-            this.log.debug("Core Response code = " + ((MediatorHTTPResponse) msg).getStatusCode());
-            this.log.debug("Core Response body = " + ((MediatorHTTPResponse) msg).getBody());
+            this.log.debug("Core Response code: " + ((MediatorHTTPResponse) msg).getStatusCode());
+            this.log.debug("Core Response body: " + ((MediatorHTTPResponse) msg).getBody());
             updateOpenHIMTransactionByTransactionId(new JSONObject(((MediatorHTTPResponse) msg).getBody()));
 
             FinishRequest finishRequest = new FinishRequest("", "text/plain", HttpStatus.SC_OK);
 
-            (this.workingRequest).getRequestHandler().tell(finishRequest, getSelf());
+            this.workingRequest.getRequestHandler().tell(finishRequest, getSelf());
         }
     }
 
@@ -107,7 +107,8 @@ public class AcknowledgementOrchestrator extends UntypedActor {
      * @param transaction The transaction.
      */
     private void updateOpenHIMTransactionByTransactionId(JSONObject transaction) {
-        this.log.info("Updating OpenHIM Transaction with ELMIS ACK");
+        this.log.debug("Updating OpenHIM Transaction with ACK");
+
         if (this.ack.getStatus().equals("Success")) {
             transaction.getJSONObject("response").put("status", HttpStatus.SC_OK);
             transaction.put("status", "Successful");
@@ -115,9 +116,9 @@ public class AcknowledgementOrchestrator extends UntypedActor {
             transaction.getJSONObject("response").put("status", HttpStatus.SC_BAD_REQUEST);
             transaction.put("status", "Failed");
         }
+
         transaction.getJSONObject("response").put("body", new Gson().toJson(this.ack));
         transaction.getJSONObject("response").put("timestamp", new Timestamp(System.currentTimeMillis()));
-
 
         Map<String, String> headers = new HashMap<>();
 

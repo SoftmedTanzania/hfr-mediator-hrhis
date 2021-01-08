@@ -5,10 +5,9 @@ import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import com.google.gson.Gson;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.http.HttpStatus;
 import org.openhim.mediator.engine.MediatorConfig;
-import org.openhim.mediator.engine.messages.FinishRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPResponse;
 import tz.go.moh.him.hfr.mediator.domain.HfrRequest;
@@ -50,10 +49,9 @@ public class FacilityOrchestrator extends UntypedActor {
      * Handles the received message.
      *
      * @param msg The received message.
-     * @throws Exception
      */
     @Override
-    public void onReceive(Object msg) throws Exception {
+    public void onReceive(Object msg) {
         if (msg instanceof MediatorHTTPRequest) {
 
             workingRequest = (MediatorHTTPRequest) msg;
@@ -63,6 +61,7 @@ public class FacilityOrchestrator extends UntypedActor {
             Map<String, String> headers = new HashMap<>();
 
             headers.put("Content-Type", "application/json");
+            headers.put("Authorization", String.format("Basic: %s", Base64.encodeBase64String(String.format("%s:%s", config.getProperty("destination.username"), config.getProperty("destination.password")).getBytes())));
 
             List<Pair<String, String>> parameters = new ArrayList<>();
 
@@ -78,6 +77,7 @@ public class FacilityOrchestrator extends UntypedActor {
 
             ActorSelection httpConnector = getContext().actorSelection(config.userPathFor("http-connector"));
             httpConnector.tell(request, getSelf());
+
         } else if (msg instanceof MediatorHTTPResponse) {
             workingRequest.getRequestHandler().tell(((MediatorHTTPResponse) msg).toFinishRequest(), getSelf());
         } else {

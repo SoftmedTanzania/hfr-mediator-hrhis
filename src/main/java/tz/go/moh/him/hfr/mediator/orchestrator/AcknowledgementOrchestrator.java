@@ -57,10 +57,9 @@ public class AcknowledgementOrchestrator extends UntypedActor {
      * Handles the received message.
      *
      * @param msg The received message.
-     * @throws Exception
      */
     @Override
-    public void onReceive(Object msg) throws Exception {
+    public void onReceive(Object msg) {
         if (msg instanceof MediatorHTTPRequest) {
             this.workingRequest = (MediatorHTTPRequest) msg;
             this.ack = new Gson().fromJson(((MediatorHTTPRequest) msg).getBody(), Ack.class);

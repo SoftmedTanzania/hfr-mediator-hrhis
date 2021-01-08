@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Represents an EPICOR acknowledgement.
+ * Represents an acknowledgement.
  */
-public class EpicorAck {
+public class Ack {
 
     /**
      * The transaction id number.
@@ -23,17 +23,17 @@ public class EpicorAck {
     private String status;
 
     /**
-     * Initializes a new instance of the {@link EpicorAck} class.
+     * Initializes a new instance of the {@link Ack} class.
      */
-    public EpicorAck() {
+    public Ack() {
     }
 
     /**
-     * Initializes a new instance of the {@link EpicorAck} class.
+     * Initializes a new instance of the {@link Ack} class.
      * @param transactionIdNumber The transaction id number.
      * @param status The status.
      */
-    public EpicorAck(String transactionIdNumber, String status) {
+    public Ack(String transactionIdNumber, String status) {
         this.transactionIdNumber = transactionIdNumber;
         this.status = status;
     }

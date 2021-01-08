@@ -6,7 +6,7 @@ import akka.event.LoggingAdapter;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.openhim.mediator.engine.*;
-import tz.go.moh.him.hfr.mediator.orchestrator.EpicorFacilityOrchestrator;
+import tz.go.moh.him.hfr.mediator.orchestrator.FacilityOrchestrator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,7 +33,7 @@ public class MediatorMain {
     private static RoutingTable buildRoutingTable() throws RoutingTable.RouteAlreadyMappedException {
         RoutingTable routingTable = new RoutingTable();
 
-        routingTable.addRoute("/hfr-epicor", EpicorFacilityOrchestrator.class);
+        routingTable.addRoute("/hfr", FacilityOrchestrator.class);
 
         return routingTable;
     }

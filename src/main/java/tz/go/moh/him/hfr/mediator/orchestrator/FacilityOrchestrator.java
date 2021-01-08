@@ -1,14 +1,17 @@
 package tz.go.moh.him.hfr.mediator.orchestrator;
 
+import akka.actor.ActorSelection;
 import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
+import com.google.gson.Gson;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.http.HttpStatus;
 import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.messages.FinishRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPResponse;
+import tz.go.moh.him.hfr.mediator.domain.HfrRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +21,7 @@ import java.util.Map;
 /**
  * Represents a facility orchestrator.
  */
-public abstract class FacilityOrchestrator extends UntypedActor {
+public class FacilityOrchestrator extends UntypedActor {
     /**
      * The logger instance.
      */
@@ -44,13 +47,6 @@ public abstract class FacilityOrchestrator extends UntypedActor {
     }
 
     /**
-     * Process the message.
-     *
-     * @param message The message.
-     */
-    protected abstract void processMessage(Map<String, String> headers, List<Pair<String, String>> parameters, Object message);
-
-    /**
      * Handles the received message.
      *
      * @param msg The received message.
@@ -70,18 +66,20 @@ public abstract class FacilityOrchestrator extends UntypedActor {
 
             List<Pair<String, String>> parameters = new ArrayList<>();
 
-            this.processMessage(headers, parameters, msg);
+            Gson gson = new Gson();
 
-            FinishRequest finishRequest = new FinishRequest("Success", "text/plain", HttpStatus.SC_OK);
-            workingRequest.getRequestHandler().tell(finishRequest, getSelf());
+            HfrRequest hfrRequest = gson.fromJson(workingRequest.getBody(), HfrRequest.class);
 
+            hfrRequest.setTransactionIdNumber(workingRequest.getHeaders().get("x-openhim-transactionid"));
+
+            MediatorHTTPRequest request = new MediatorHTTPRequest(workingRequest.getRequestHandler(), getSelf(), "Sending data", HfrRequest.OPERATION_MAP.get(hfrRequest.getPostOrUpdate()),
+                    config.getProperty("destination.scheme"), config.getProperty("destination.host"), Integer.parseInt(config.getProperty("destination.api.port")), config.getProperty("destination.api.path"),
+                    gson.toJson(hfrRequest), headers, parameters);
+
+            ActorSelection httpConnector = getContext().actorSelection(config.userPathFor("http-connector"));
+            httpConnector.tell(request, getSelf());
         } else if (msg instanceof MediatorHTTPResponse) {
-            if (((MediatorHTTPResponse) msg).getStatusCode() == 200) {
-                FinishRequest finishRequest = new FinishRequest("Success", "text/plain", HttpStatus.SC_OK);
-                workingRequest.getRequestHandler().tell(finishRequest, getSelf());
-            } else {
-                workingRequest.getRequestHandler().tell(((MediatorHTTPResponse) msg).toFinishRequest(), getSelf());
-            }
+            workingRequest.getRequestHandler().tell(((MediatorHTTPResponse) msg).toFinishRequest(), getSelf());
         } else {
             unhandled(msg);
         }

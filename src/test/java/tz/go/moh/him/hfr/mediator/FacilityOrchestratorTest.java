@@ -1,4 +1,4 @@
-package tz.go.moh.him.hfr.mediator.epicor;
+package tz.go.moh.him.hfr.mediator;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
@@ -12,7 +12,6 @@ import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.RoutingTable;
 import org.openhim.mediator.engine.messages.FinishRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
-import tz.go.moh.him.hfr.mediator.orchestrator.EpicorFacilityOrchestrator;
 import tz.go.moh.him.hfr.mediator.orchestrator.FacilityOrchestrator;
 
 import java.io.File;
@@ -50,11 +49,11 @@ public class FacilityOrchestratorTest {
     public void testMediatorHTTPRequest() throws Exception {
         new JavaTestKit(system) {{
             final MediatorConfig testConfig = loadConfig(null);
-            final ActorRef defaultOrchestrator = system.actorOf(Props.create(EpicorFacilityOrchestrator.class, testConfig));
+            final ActorRef defaultOrchestrator = system.actorOf(Props.create(FacilityOrchestrator.class, testConfig));
 
             InputStream stream = FacilityOrchestratorTest.class.getClassLoader().getResourceAsStream("request.json");
 
-            MediatorHTTPRequest POST_Request = new MediatorHTTPRequest(
+            MediatorHTTPRequest request = new MediatorHTTPRequest(
                     getRef(),
                     getRef(),
                     "unit-test",
@@ -68,7 +67,7 @@ public class FacilityOrchestratorTest {
                     Collections.<Pair<String, String>>emptyList()
             );
 
-            defaultOrchestrator.tell(POST_Request, getRef());
+            defaultOrchestrator.tell(request, getRef());
 
             final Object[] out =
                     new ReceiveWhile<Object>(Object.class, duration("1 second")) {

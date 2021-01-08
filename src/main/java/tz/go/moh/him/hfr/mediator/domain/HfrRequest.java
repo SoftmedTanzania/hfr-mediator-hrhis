@@ -12,6 +12,13 @@ import java.util.HashMap;
 public class HfrRequest {
 
     /**
+     * The transaction id number from the IL.
+     */
+    @JsonProperty("IL_IDNumber")
+    @SerializedName("IL_IDNumber")
+    private String transactionIdNumber;
+
+    /**
      * The facility id number.
      */
     @JsonProperty("Fac_IDNumber")
@@ -500,5 +507,13 @@ public class HfrRequest {
 
     public void setPostOrUpdate(String postOrUpdate) {
         this.postOrUpdate = postOrUpdate;
+    }
+
+    public String getTransactionIdNumber() {
+        return transactionIdNumber;
+    }
+
+    public void setTransactionIdNumber(String transactionIdNumber) {
+        this.transactionIdNumber = transactionIdNumber;
     }
 }

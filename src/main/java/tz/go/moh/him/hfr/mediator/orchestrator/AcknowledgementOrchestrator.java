@@ -12,7 +12,7 @@ import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.messages.FinishRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPResponse;
-import tz.go.moh.him.hfr.mediator.domain.EpicorAck;
+import tz.go.moh.him.hfr.mediator.domain.Ack;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -21,9 +21,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Represents an EPICOR acknowledgement orchestrator.
+ * Represents an acknowledgement orchestrator.
  */
-public class EpicorAcknowledgementOrchestrator extends UntypedActor {
+public class AcknowledgementOrchestrator extends UntypedActor {
     /**
      * The logger instance.
      */
@@ -37,7 +37,7 @@ public class EpicorAcknowledgementOrchestrator extends UntypedActor {
     /**
      * Represents an EPICOR ACK.
      */
-    private EpicorAck epicorAck;
+    private Ack ack;
 
     /**
      * Represents a mediator request.
@@ -45,11 +45,11 @@ public class EpicorAcknowledgementOrchestrator extends UntypedActor {
     private MediatorHTTPRequest workingRequest;
 
     /**
-     * Initializes a new instance of the {@link EpicorAcknowledgementOrchestrator} class.
+     * Initializes a new instance of the {@link AcknowledgementOrchestrator} class.
      *
      * @param config The mediator configuration.
      */
-    public EpicorAcknowledgementOrchestrator(MediatorConfig config) {
+    public AcknowledgementOrchestrator(MediatorConfig config) {
         this.config = config;
     }
 
@@ -63,8 +63,8 @@ public class EpicorAcknowledgementOrchestrator extends UntypedActor {
     public void onReceive(Object msg) throws Exception {
         if (msg instanceof MediatorHTTPRequest) {
             this.workingRequest = (MediatorHTTPRequest) msg;
-            this.epicorAck = new Gson().fromJson(((MediatorHTTPRequest) msg).getBody(), EpicorAck.class);
-            obtainOpenHIMTransactionByTransactionId(epicorAck.getTransactionIdNumber());
+            this.ack = new Gson().fromJson(((MediatorHTTPRequest) msg).getBody(), Ack.class);
+            obtainOpenHIMTransactionByTransactionId(ack.getTransactionIdNumber());
         } else if (msg instanceof MediatorHTTPResponse) {
             this.log.info("Received feedback from core");
             this.log.debug("Core Response code = " + ((MediatorHTTPResponse) msg).getStatusCode());
@@ -108,14 +108,14 @@ public class EpicorAcknowledgementOrchestrator extends UntypedActor {
      */
     private void updateOpenHIMTransactionByTransactionId(JSONObject transaction) {
         this.log.info("Updating OpenHIM Transaction with ELMIS ACK");
-        if (this.epicorAck.getStatus().equals("Success")) {
+        if (this.ack.getStatus().equals("Success")) {
             transaction.getJSONObject("response").put("status", HttpStatus.SC_OK);
             transaction.put("status", "Successful");
         } else {
             transaction.getJSONObject("response").put("status", HttpStatus.SC_BAD_REQUEST);
             transaction.put("status", "Failed");
         }
-        transaction.getJSONObject("response").put("body", new Gson().toJson(this.epicorAck));
+        transaction.getJSONObject("response").put("body", new Gson().toJson(this.ack));
         transaction.getJSONObject("response").put("timestamp", new Timestamp(System.currentTimeMillis()));
 
 
@@ -127,7 +127,7 @@ public class EpicorAcknowledgementOrchestrator extends UntypedActor {
 
         MediatorHTTPRequest obtainOpenHIMTransactionRequest = new MediatorHTTPRequest(
                 (this.workingRequest).getRequestHandler(), getSelf(), "Updating OpenHIM Transaction by transactionId", "PUT", this.config.getProperty("epicor.scheme"),
-                this.config.getProperty("core.host"), Integer.parseInt(this.config.getProperty("core.api.port")), "/transactions/" + this.epicorAck.getTransactionIdNumber(),
+                this.config.getProperty("core.host"), Integer.parseInt(this.config.getProperty("core.api.port")), "/transactions/" + this.ack.getTransactionIdNumber(),
                 transaction.toString(), headers, params
         );
 

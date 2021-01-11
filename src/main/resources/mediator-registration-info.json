@@ -10,6 +10,13 @@
       "port": "3001",
       "path": "/hfr",
       "type": "http"
+    },
+    {
+      "name": "HFR Mediator Route",
+      "host": "localhost",
+      "port": "3001",
+      "path": "/hfr-ack",
+      "type": "http"
     }
   ],
   "defaultChannelConfig": [
@@ -17,7 +24,9 @@
       "name": "HFR Mediator",
       "urlPattern": "^/hfr$",
       "type": "http",
-      "allow": ["hfrmediator"],
+      "allow": [
+        "hfr-mediator"
+      ],
       "routes": [
         {
           "name": "HFR Mediator Route",
@@ -26,6 +35,24 @@
           "path": "/hfr",
           "type": "http",
           "primary": "true"
+        }
+      ]
+    },
+    {
+      "name": "HFR ACK Mediator",
+      "urlPattern": "^/hfr-ack$",
+      "description": "An OpenHIM mediator for handling acknowledgments",
+      "type": "http",
+      "allow": [
+        "hfr-mediator"
+      ],
+      "routes": [
+        {
+          "name": "eLMIS Daily Stock Status ACK",
+          "host": "localhost",
+          "port": "3001",
+          "path": "/hfr-ack",
+          "type": "http"
         }
       ]
     }

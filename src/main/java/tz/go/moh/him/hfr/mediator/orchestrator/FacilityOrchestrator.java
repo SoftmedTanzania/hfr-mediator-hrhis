@@ -68,7 +68,6 @@ public class FacilityOrchestrator extends UntypedActor {
                 headers.put("Authorization", workingRequest.getHeaders().get("Authorization"));
             }
 
-
             List<Pair<String, String>> parameters = new ArrayList<>();
 
             Gson gson = new Gson();

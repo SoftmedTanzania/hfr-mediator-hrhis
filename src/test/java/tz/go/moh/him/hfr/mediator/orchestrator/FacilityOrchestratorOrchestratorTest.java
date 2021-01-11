@@ -1,4 +1,4 @@
-package tz.go.moh.him.hfr.mediator;
+package tz.go.moh.him.hfr.mediator.orchestrator;
 
 import akka.actor.ActorRef;
 import akka.actor.Props;
@@ -8,7 +8,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openhim.mediator.engine.messages.FinishRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
-import tz.go.moh.him.hfr.mediator.orchestrator.FacilityOrchestrator;
 
 import java.io.InputStream;
 import java.util.Arrays;
@@ -17,19 +16,19 @@ import java.util.Collections;
 /**
  * Contains tests for the {@link FacilityOrchestrator} class.
  */
-public class FacilityOrchestratorTest extends BaseTest {
+public class FacilityOrchestratorOrchestratorTest extends BaseOrchestratorTest {
 
     /**
      * Tests the mediator.
      *
-     * @throws Exception
+     * @throws Exception if an exception occurs
      */
     @Test
     public void testMediatorHTTPRequest() throws Exception {
         new JavaTestKit(system) {{
             final ActorRef orchestrator = system.actorOf(Props.create(FacilityOrchestrator.class, configuration));
 
-            InputStream stream = FacilityOrchestratorTest.class.getClassLoader().getResourceAsStream("request.json");
+            InputStream stream = FacilityOrchestratorOrchestratorTest.class.getClassLoader().getResourceAsStream("request.json");
 
             Assert.assertNotNull(stream);
 

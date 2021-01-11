@@ -57,6 +57,8 @@ public class MockDestination extends MockHTTPConnector {
 
         HfrRequest request = gson.fromJson(msg.getBody(), HfrRequest.class);
 
+//        Assert.assertEquals(request);
+
 //        assertEquals(expectedPayload.getPartNum(), dailyStockStatus.getPartNum());
 //        assertEquals(expectedPayload.getDate(), dailyStockStatus.getDate());
 //        assertEquals(expectedPayload.getMonthOfStock(), dailyStockStatus.getMonthOfStock());

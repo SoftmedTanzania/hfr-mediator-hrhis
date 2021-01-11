@@ -1,4 +1,4 @@
-package tz.go.moh.him.hfr.mediator;
+package tz.go.moh.him.hfr.mediator.orchestrator;
 
 import akka.actor.ActorSystem;
 import akka.testkit.JavaTestKit;
@@ -9,19 +9,18 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.openhim.mediator.engine.MediatorConfig;
-import org.openhim.mediator.engine.RoutingTable;
 import org.openhim.mediator.engine.testing.MockLauncher;
 import org.openhim.mediator.engine.testing.TestingUtils;
 import tz.go.moh.him.hfr.mediator.mock.MockDestination;
+import tz.go.moh.him.hfr.mediator.mock.MockOpenHIM;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
-public abstract class BaseTest {
+public abstract class BaseOrchestratorTest {
 
     /**
      * Represents the configuration.
@@ -35,20 +34,16 @@ public abstract class BaseTest {
 
     /**
      * Runs cleanup after each test execution.
-     *
-     * @throws Exception
      */
     @After
-    public void after() throws Exception {
+    public void after() {
     }
 
     /**
      * Runs cleanup after class execution.
-     *
-     * @throws Exception
      */
     @AfterClass
-    public static void afterClass() throws Exception {
+    public static void afterClass() {
         TestingUtils.clearRootContext(system, configuration.getName());
         JavaTestKit.shutdownActorSystem(system);
         system = null;
@@ -56,23 +51,22 @@ public abstract class BaseTest {
 
     /**
      * Runs initialization before each test execution.
-     *
-     * @throws Exception
      */
     @Before
-    public void before() throws Exception {
-        List<MockLauncher.ActorToLaunch> toLaunch = new LinkedList<>();
-        toLaunch.add(new MockLauncher.ActorToLaunch("http-connector", MockDestination.class));
-        TestingUtils.launchActors(system, configuration.getName(), toLaunch);
+    public void before() {
+        List<MockLauncher.ActorToLaunch> actorsToLaunch = new LinkedList<>();
+
+        actorsToLaunch.add(new MockLauncher.ActorToLaunch("http-connector", MockDestination.class));
+        actorsToLaunch.add(new MockLauncher.ActorToLaunch("core-api-connector", MockOpenHIM.class));
+
+        TestingUtils.launchActors(system, configuration.getName(), actorsToLaunch);
     }
 
     /**
      * Runs initialization before each class execution.
-     *
-     * @throws Exception
      */
     @BeforeClass
-    public static void beforeClass() throws Exception {
+    public static void beforeClass() {
         try {
             configuration = loadConfig(null);
             system = ActorSystem.create();
@@ -86,22 +80,25 @@ public abstract class BaseTest {
      *
      * @param configPath The configuration path.
      * @return Returns the mediator configuration.
-     * @throws IOException
-     * @throws RoutingTable.RouteAlreadyMappedException
      */
-    protected static MediatorConfig loadConfig(String configPath) throws IOException, RoutingTable.RouteAlreadyMappedException {
+    public static MediatorConfig loadConfig(String configPath) {
         MediatorConfig config = new MediatorConfig();
 
-        if (configPath != null) {
-            Properties props = new Properties();
-            File conf = new File(configPath);
-            InputStream in = FileUtils.openInputStream(conf);
-            props.load(in);
-            IOUtils.closeQuietly(in);
 
-            config.setProperties(props);
-        } else {
-            config.setProperties("mediator.properties");
+        try {
+            if (configPath != null) {
+                Properties props = new Properties();
+                File conf = new File(configPath);
+                InputStream in = FileUtils.openInputStream(conf);
+                props.load(in);
+                IOUtils.closeQuietly(in);
+
+                config.setProperties(props);
+            } else {
+                config.setProperties("mediator.properties");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
         config.setName(config.getProperty("mediator.name"));

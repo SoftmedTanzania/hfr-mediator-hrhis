@@ -243,39 +243,6 @@ public class HfrRequest {
     public HfrRequest() {
     }
 
-    /**
-     * Initializes a new instance of the {@link HfrRequest} class.
-     * @param request The existing {@link HfrRequest} instance.
-     */
-    public HfrRequest(HfrRequest request) {
-        this.commonFacilityName = request.getCommonFacilityName();
-        this.council = request.getCouncil();
-        this.councilCode = request.getCouncilCode();
-        this.createdAt = request.getCreatedAt();
-        this.district = request.getDistrict();
-        this.districtCode = request.getDistrictCode();
-        this.facilityIdNumber = request.facilityIdNumber;
-        this.facilityType = request.getFacilityType();
-        this.facilityTypeCode = request.getFacilityTypeCode();
-        this.facilityTypeGroup = request.getFacilityTypeGroup();
-        this.facilityTypeGroupCode = request.getFacilityTypeGroupCode();
-        this.latitude = request.getLatitude();
-        this.longitude = request.getLongitude();
-        this.name = request.getName();
-        this.operatingStatus = request.getOperatingStatus();
-        this.operatingStatusChangeClosedToOperational = request.getOperatingStatusChangeClosedToOperational();
-        this.operatingStatusChangeOpenToClosed = request.getOperatingStatusChangeOpenToClosed();
-        this.ownership = request.getOwnership();
-        this.ownershipCode = request.getOwnershipCode();
-        this.ownershipGroup = request.getOwnershipGroup();
-        this.ownershipGroupCode = request.getOwnershipGroupCode();
-        this.postOrUpdate = request.getPostOrUpdate();
-        this.region = request.getRegion();
-        this.regionCode = request.getRegionCode();
-        this.registrationStatus = request.getRegistrationStatus();
-        this.villageMtaa = request.getVillageMtaa();
-    }
-
     public String getFacilityIdNumber() {
         return facilityIdNumber;
     }

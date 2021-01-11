@@ -34,8 +34,8 @@ public class Ack {
      * @param status The status.
      */
     public Ack(String transactionIdNumber, String status) {
-        this.transactionIdNumber = transactionIdNumber;
-        this.status = status;
+        this.setTransactionIdNumber(transactionIdNumber);
+        this.setStatus(status);
     }
 
     /**

@@ -33,13 +33,6 @@ public abstract class BaseOrchestratorTest {
     protected static ActorSystem system;
 
     /**
-     * Runs cleanup after each test execution.
-     */
-    @After
-    public void after() {
-    }
-
-    /**
      * Runs cleanup after class execution.
      */
     @AfterClass
@@ -47,19 +40,6 @@ public abstract class BaseOrchestratorTest {
         TestingUtils.clearRootContext(system, configuration.getName());
         JavaTestKit.shutdownActorSystem(system);
         system = null;
-    }
-
-    /**
-     * Runs initialization before each test execution.
-     */
-    @Before
-    public void before() {
-        List<MockLauncher.ActorToLaunch> actorsToLaunch = new LinkedList<>();
-
-        actorsToLaunch.add(new MockLauncher.ActorToLaunch("http-connector", MockDestination.class));
-        actorsToLaunch.add(new MockLauncher.ActorToLaunch("core-api-connector", MockOpenHIM.class));
-
-        TestingUtils.launchActors(system, configuration.getName(), actorsToLaunch);
     }
 
     /**
@@ -114,5 +94,25 @@ public abstract class BaseOrchestratorTest {
         config.setHeartbeatsEnabled(true);
 
         return config;
+    }
+
+    /**
+     * Runs cleanup after each test execution.
+     */
+    @After
+    public void after() {
+    }
+
+    /**
+     * Runs initialization before each test execution.
+     */
+    @Before
+    public void before() {
+        List<MockLauncher.ActorToLaunch> actorsToLaunch = new LinkedList<>();
+
+        actorsToLaunch.add(new MockLauncher.ActorToLaunch("http-connector", MockDestination.class));
+        actorsToLaunch.add(new MockLauncher.ActorToLaunch("core-api-connector", MockOpenHIM.class));
+
+        TestingUtils.launchActors(system, configuration.getName(), actorsToLaunch);
     }
 }

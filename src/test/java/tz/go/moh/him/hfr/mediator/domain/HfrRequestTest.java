@@ -38,6 +38,11 @@ public class HfrRequestTest {
 
         Assert.assertEquals("105651-4", hfrRequest.getFacilityIdNumber());
         Assert.assertEquals("Muhimbili", hfrRequest.getName());
+        Assert.assertEquals("Muhimbili ", hfrRequest.getCommonFacilityName());
+        Assert.assertEquals("Eastern Zone", hfrRequest.getZone());
+        Assert.assertEquals("Mfaume", hfrRequest.getVillageMtaa());
+        Assert.assertEquals("Upanga Magharibi", hfrRequest.getWard());
+        Assert.assertEquals("Ilala MC", hfrRequest.getCouncil());
         Assert.assertEquals("-6.801501", hfrRequest.getLatitude());
         Assert.assertEquals("2017-10-27T05:54:48.000Z", hfrRequest.getUpdatedAt());
 

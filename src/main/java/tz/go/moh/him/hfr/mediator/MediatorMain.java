@@ -6,6 +6,7 @@ import akka.event.LoggingAdapter;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.openhim.mediator.engine.*;
+import tz.go.moh.him.hfr.mediator.orchestrator.AcknowledgementOrchestrator;
 import tz.go.moh.him.hfr.mediator.orchestrator.FacilityOrchestrator;
 
 import java.io.File;
@@ -28,12 +29,13 @@ public class MediatorMain {
      * Builds the routing table.
      *
      * @return Returns the routing table.
-     * @throws RoutingTable.RouteAlreadyMappedException
+     * @throws RoutingTable.RouteAlreadyMappedException if the route is already mapped
      */
     private static RoutingTable buildRoutingTable() throws RoutingTable.RouteAlreadyMappedException {
         RoutingTable routingTable = new RoutingTable();
 
         routingTable.addRoute("/hfr", FacilityOrchestrator.class);
+        routingTable.addRoute("/hfr-ack", AcknowledgementOrchestrator.class);
 
         return routingTable;
     }
@@ -44,10 +46,17 @@ public class MediatorMain {
      * @return Returns the startup actors configuration.
      */
     private static StartupActorsConfig buildStartupActorsConfig() {
-        StartupActorsConfig startupActors = new StartupActorsConfig();
-        return startupActors;
+        return new StartupActorsConfig();
     }
 
+    /**
+     * Loads the configuration.
+     *
+     * @param configPath The path of the configuration.
+     * @return Returns the configuration instance.
+     * @throws IOException                              if an IO exception occurs
+     * @throws RoutingTable.RouteAlreadyMappedException if the route is already mapped
+     */
     private static MediatorConfig loadConfig(String configPath) throws IOException, RoutingTable.RouteAlreadyMappedException {
         MediatorConfig config = new MediatorConfig();
 
@@ -80,8 +89,7 @@ public class MediatorMain {
 
         InputStream registrationInformation = MediatorMain.class.getClassLoader().getResourceAsStream(MEDIATOR_REGISTRATION_INFO);
 
-        if (registrationInformation == null)
-        {
+        if (registrationInformation == null) {
             throw new FileNotFoundException("Unable to locate " + MEDIATOR_REGISTRATION_INFO);
         }
 
@@ -96,7 +104,14 @@ public class MediatorMain {
         return config;
     }
 
+    /**
+     * The main entry point of the application.
+     *
+     * @param args The arguments.
+     * @throws Exception if an exception occurs
+     */
     public static void main(String... args) throws Exception {
+
         //setup actor system
         final ActorSystem system = ActorSystem.create("mediator");
         //setup logger for main
@@ -106,7 +121,7 @@ public class MediatorMain {
         log.info("Initializing mediator actors...");
 
         String configPath = null;
-        if (args.length == 2 && args[0].equals("--conf")) {
+        if (args != null && args.length == 2 && args[0].equals("--conf")) {
             configPath = args[1];
             log.info("Loading mediator configuration from '" + configPath + "'...");
         } else {
@@ -114,17 +129,17 @@ public class MediatorMain {
         }
 
         MediatorConfig config = loadConfig(configPath);
+
+        config.setSSLContext(new MediatorConfig.SSLContext(true));
+
         final MediatorServer server = new MediatorServer(system, config);
 
         //setup shutdown hook
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            @Override
-            public void run() {
-                log.info("Shutting down mediator");
-                server.stop();
-                system.shutdown();
-            }
-        });
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            log.info("Shutting down mediator");
+            server.stop();
+            system.shutdown();
+        }));
 
         log.info("Starting mediator server...");
         server.start();

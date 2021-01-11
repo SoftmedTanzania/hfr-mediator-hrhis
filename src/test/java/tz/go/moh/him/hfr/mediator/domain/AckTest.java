@@ -39,4 +39,20 @@ public class AckTest {
         Assert.assertEquals("Success", ack.getStatus());
         Assert.assertEquals("123456789", ack.getTransactionIdNumber());
     }
+
+    /**
+     * Tests the serialization of an Ack.
+     */
+    @Test
+    public void testSerializeAck() {
+
+        Ack ack = new Ack("123412341234", "Fail");
+
+        Gson gson = new Gson();
+
+        String actual = gson.toJson(ack);
+
+        Assert.assertTrue(actual.contains("Fail"));
+        Assert.assertTrue(actual.contains("123412341234"));
+    }
 }

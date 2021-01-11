@@ -7,14 +7,14 @@
     {
       "name": "HFR Mediator Route",
       "host": "localhost",
-      "port": "3001",
+      "port": "3003",
       "path": "/hfr",
       "type": "http"
     },
     {
       "name": "HFR Mediator Route",
       "host": "localhost",
-      "port": "3001",
+      "port": "3003",
       "path": "/hfr-ack",
       "type": "http"
     }
@@ -31,7 +31,7 @@
         {
           "name": "HFR Mediator Route",
           "host": "localhost",
-          "port": "3001",
+          "port": "3003",
           "path": "/hfr",
           "type": "http",
           "primary": "true"
@@ -48,9 +48,9 @@
       ],
       "routes": [
         {
-          "name": "eLMIS Daily Stock Status ACK",
+          "name": "ACK",
           "host": "localhost",
-          "port": "3001",
+          "port": "3003",
           "path": "/hfr-ack",
           "type": "http"
         }

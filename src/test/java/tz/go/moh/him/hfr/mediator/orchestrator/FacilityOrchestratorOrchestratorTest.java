@@ -24,7 +24,7 @@ public class FacilityOrchestratorOrchestratorTest extends BaseOrchestratorTest {
      * @throws Exception if an exception occurs
      */
     @Test
-    public void testMediatorHTTPRequest() throws Exception {
+    public void testHfrRequest() throws Exception {
         new JavaTestKit(system) {{
             final ActorRef orchestrator = system.actorOf(Props.create(FacilityOrchestrator.class, configuration));
 

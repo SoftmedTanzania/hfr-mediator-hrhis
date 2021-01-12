@@ -48,7 +48,7 @@ public class FacilityOrchestratorOrchestratorTest extends BaseOrchestratorTest {
 
             orchestrator.tell(request, getRef());
 
-            final Object[] out = new ReceiveWhile<Object>(Object.class, duration("1 second")) {
+            final Object[] out = new ReceiveWhile<Object>(Object.class, duration("3 seconds")) {
                 @Override
                 protected Object match(Object msg) {
                     if (msg instanceof FinishRequest) {

@@ -11,216 +11,6 @@ import java.util.HashMap;
 public class HfrRequest {
 
     /**
-     * The transaction id number from the IL.
-     */
-    @JsonProperty("IL_IDNumber")
-    @SerializedName("IL_IDNumber")
-    private String transactionIdNumber;
-
-    /**
-     * The facility id number.
-     */
-    @JsonProperty("Fac_IDNumber")
-    @SerializedName("Fac_IDNumber")
-    private String facilityIdNumber;
-
-    /**
-     * The facility name.
-     */
-    @JsonProperty("Name")
-    @SerializedName("Name")
-    private String name;
-
-    /**
-     * The common facility name.
-     */
-    @JsonProperty("Comm_FacName")
-    @SerializedName("Comm_FacName")
-    private String commonFacilityName;
-
-    /**
-     * The zone.
-     */
-    @JsonProperty("Zone")
-    @SerializedName("Zone")
-    private String zone;
-
-    /**
-     * The region.
-     */
-    @JsonProperty("Region")
-    @SerializedName("Region")
-    private String region;
-
-    /**
-     * The region code.
-     */
-    @JsonProperty("RegionCode")
-    @SerializedName("RegionCode")
-    private String regionCode;
-
-    /**
-     * The district.
-     */
-    @JsonProperty("District")
-    @SerializedName("District")
-    private String district;
-
-    /**
-     * The district code.
-     */
-    @JsonProperty("DistrictCode")
-    @SerializedName("DistrictCode")
-    private String districtCode;
-
-    /**
-     * The council.
-     */
-    @JsonProperty("Council")
-    @SerializedName("Council")
-    private String council;
-
-    /**
-     * The council code.
-     */
-    @JsonProperty("CouncilCode")
-    @SerializedName("CouncilCode")
-    private String councilCode;
-
-    /**
-     * The ward.
-     */
-    @JsonProperty("Ward")
-    @SerializedName("Ward")
-    private String ward;
-
-    /**
-     * The village street.
-     */
-    @JsonProperty("VillageMtaa")
-    @SerializedName("VillageMtaa")
-    private String villageMtaa;
-
-    /**
-     * The facility type group.
-     */
-    @JsonProperty("FacilityTypeGroup")
-    @SerializedName("FacilityTypeGroup")
-    private String facilityTypeGroup;
-
-    /**
-     * The facility type group code.
-     */
-    @JsonProperty("FacilityTypeGroupCode")
-    @SerializedName("FacilityTypeGroupCode")
-    private String facilityTypeGroupCode;
-
-    /**
-     * The facility type.
-     */
-    @JsonProperty("FacilityType")
-    @SerializedName("FacilityType")
-    private String facilityType;
-
-    /**
-     * The facility type code.
-     */
-    @JsonProperty("FacilityTypeCode")
-    @SerializedName("FacilityTypeCode")
-    private String facilityTypeCode;
-
-    /**
-     * The ownership group.
-     */
-    @JsonProperty("OwnershipGroup")
-    @SerializedName("OwnershipGroup")
-    private String ownershipGroup;
-
-    /**
-     * The ownership group code.
-     */
-    @JsonProperty("OwnershipGroupCode")
-    @SerializedName("OwnershipGroupCode")
-    private String ownershipGroupCode;
-
-    /**
-     * The ownership.
-     */
-    @JsonProperty("Ownership")
-    @SerializedName("Ownership")
-    private String ownership;
-
-    /**
-     * The ownership code.
-     */
-    @JsonProperty("OwnershipCode")
-    @SerializedName("OwnershipCode")
-    private String ownershipCode;
-
-    /**
-     * The operating status.
-     */
-    @JsonProperty("OperatingStatus")
-    @SerializedName("OperatingStatus")
-    private String operatingStatus;
-
-    /**
-     * The latitude.
-     */
-    @JsonProperty("Latitude")
-    @SerializedName("Latitude")
-    private String latitude;
-
-    /**
-     * The longitude.
-     */
-    @JsonProperty("Longitude")
-    @SerializedName("Longitude")
-    private String longitude;
-
-    /**
-     * The registration status.
-     */
-    @JsonProperty("RegistrationStatus")
-    @SerializedName("RegistrationStatus")
-    private String registrationStatus;
-
-    /**
-     * The date time at which the record was created.
-     */
-    @JsonProperty("CreatedAt")
-    @SerializedName("CreatedAt")
-    private String createdAt;
-
-    /**
-     * The date time at which the record was updated.
-     */
-    @JsonProperty("UpdatedAt")
-    @SerializedName("UpdatedAt")
-    private String updatedAt;
-
-    /**
-     * The indicator as to whether the operating status changed from open to closed.
-     */
-    @JsonProperty("OSchangeOpenedtoClose")
-    @SerializedName("OSchangeOpenedtoClose")
-    private String operatingStatusChangeOpenToClosed;
-
-    /**
-     * The indicator as to whether the operating status changed from closed to operational.
-     */
-    @JsonProperty("OSchangeClosedtoOperational")
-    @SerializedName("OSchangeClosedtoOperational")
-    private String operatingStatusChangeClosedToOperational;
-
-    /**
-     * The indicator as to whether this message is a create or update.
-     */
-    @JsonProperty("PostorUpdate")
-    @SerializedName("PostorUpdate")
-    private String postOrUpdate;
-
-    /**
      * Represents the operation map for the post or update field.
      */
     public static final HashMap<String, String> OPERATION_MAP;
@@ -228,14 +18,194 @@ public class HfrRequest {
     /**
      * Initializes static members of the {@link HfrRequest} class.
      */
-    static
-    {
+    static {
         OPERATION_MAP = new HashMap<>();
 
         OPERATION_MAP.put("P", "POST");
 
         OPERATION_MAP.put("U", "PUT");
     }
+
+    /**
+     * The transaction id number from the IL.
+     */
+    @JsonProperty("IL_IDNumber")
+    @SerializedName("IL_IDNumber")
+    private String transactionIdNumber;
+    /**
+     * The facility id number.
+     */
+    @JsonProperty("Fac_IDNumber")
+    @SerializedName("Fac_IDNumber")
+    private String facilityIdNumber;
+    /**
+     * The facility name.
+     */
+    @JsonProperty("Name")
+    @SerializedName("Name")
+    private String name;
+    /**
+     * The common facility name.
+     */
+    @JsonProperty("Comm_FacName")
+    @SerializedName("Comm_FacName")
+    private String commonFacilityName;
+    /**
+     * The zone.
+     */
+    @JsonProperty("Zone")
+    @SerializedName("Zone")
+    private String zone;
+    /**
+     * The region.
+     */
+    @JsonProperty("Region")
+    @SerializedName("Region")
+    private String region;
+    /**
+     * The region code.
+     */
+    @JsonProperty("RegionCode")
+    @SerializedName("RegionCode")
+    private String regionCode;
+    /**
+     * The district.
+     */
+    @JsonProperty("District")
+    @SerializedName("District")
+    private String district;
+    /**
+     * The district code.
+     */
+    @JsonProperty("DistrictCode")
+    @SerializedName("DistrictCode")
+    private String districtCode;
+    /**
+     * The council.
+     */
+    @JsonProperty("Council")
+    @SerializedName("Council")
+    private String council;
+    /**
+     * The council code.
+     */
+    @JsonProperty("CouncilCode")
+    @SerializedName("CouncilCode")
+    private String councilCode;
+    /**
+     * The ward.
+     */
+    @JsonProperty("Ward")
+    @SerializedName("Ward")
+    private String ward;
+    /**
+     * The village street.
+     */
+    @JsonProperty("VillageMtaa")
+    @SerializedName("VillageMtaa")
+    private String villageMtaa;
+    /**
+     * The facility type group.
+     */
+    @JsonProperty("FacilityTypeGroup")
+    @SerializedName("FacilityTypeGroup")
+    private String facilityTypeGroup;
+    /**
+     * The facility type group code.
+     */
+    @JsonProperty("FacilityTypeGroupCode")
+    @SerializedName("FacilityTypeGroupCode")
+    private String facilityTypeGroupCode;
+    /**
+     * The facility type.
+     */
+    @JsonProperty("FacilityType")
+    @SerializedName("FacilityType")
+    private String facilityType;
+    /**
+     * The facility type code.
+     */
+    @JsonProperty("FacilityTypeCode")
+    @SerializedName("FacilityTypeCode")
+    private String facilityTypeCode;
+    /**
+     * The ownership group.
+     */
+    @JsonProperty("OwnershipGroup")
+    @SerializedName("OwnershipGroup")
+    private String ownershipGroup;
+    /**
+     * The ownership group code.
+     */
+    @JsonProperty("OwnershipGroupCode")
+    @SerializedName("OwnershipGroupCode")
+    private String ownershipGroupCode;
+    /**
+     * The ownership.
+     */
+    @JsonProperty("Ownership")
+    @SerializedName("Ownership")
+    private String ownership;
+    /**
+     * The ownership code.
+     */
+    @JsonProperty("OwnershipCode")
+    @SerializedName("OwnershipCode")
+    private String ownershipCode;
+    /**
+     * The operating status.
+     */
+    @JsonProperty("OperatingStatus")
+    @SerializedName("OperatingStatus")
+    private String operatingStatus;
+    /**
+     * The latitude.
+     */
+    @JsonProperty("Latitude")
+    @SerializedName("Latitude")
+    private String latitude;
+    /**
+     * The longitude.
+     */
+    @JsonProperty("Longitude")
+    @SerializedName("Longitude")
+    private String longitude;
+    /**
+     * The registration status.
+     */
+    @JsonProperty("RegistrationStatus")
+    @SerializedName("RegistrationStatus")
+    private String registrationStatus;
+    /**
+     * The date time at which the record was created.
+     */
+    @JsonProperty("CreatedAt")
+    @SerializedName("CreatedAt")
+    private String createdAt;
+    /**
+     * The date time at which the record was updated.
+     */
+    @JsonProperty("UpdatedAt")
+    @SerializedName("UpdatedAt")
+    private String updatedAt;
+    /**
+     * The indicator as to whether the operating status changed from open to closed.
+     */
+    @JsonProperty("OSchangeOpenedtoClose")
+    @SerializedName("OSchangeOpenedtoClose")
+    private String operatingStatusChangeOpenToClosed;
+    /**
+     * The indicator as to whether the operating status changed from closed to operational.
+     */
+    @JsonProperty("OSchangeClosedtoOperational")
+    @SerializedName("OSchangeClosedtoOperational")
+    private String operatingStatusChangeClosedToOperational;
+    /**
+     * The indicator as to whether this message is a create or update.
+     */
+    @JsonProperty("PostorUpdate")
+    @SerializedName("PostorUpdate")
+    private String postOrUpdate;
 
     /**
      * Initializes a new instance of the {@link HfrRequest} class.

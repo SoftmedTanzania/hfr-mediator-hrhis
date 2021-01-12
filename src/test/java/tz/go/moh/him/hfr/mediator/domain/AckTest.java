@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Test;
+import tz.go.moh.him.mediator.core.exceptions.ArgumentNullException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -54,5 +55,21 @@ public class AckTest {
 
         Assert.assertTrue(actual.contains("Fail"));
         Assert.assertTrue(actual.contains("123412341234"));
+    }
+
+    /**
+     * Tests the exception when instantiating an Ack.
+     */
+    @Test(expected = ArgumentNullException.class)
+    public void testSerializeAckExceptionStatus() {
+        new Ack("123456789", null);
+    }
+
+    /**
+     * Tests the exception when instantiating an Ack.
+     */
+    @Test(expected = ArgumentNullException.class)
+    public void testSerializeAckExceptionTransactionIdNumber() {
+        new Ack(null, "Success");
     }
 }

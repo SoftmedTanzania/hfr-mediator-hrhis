@@ -3,6 +3,7 @@ package tz.go.moh.him.hfr.mediator.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 
+import java.lang.reflect.MalformedParameterizedTypeException;
 import java.util.HashMap;
 
 /**
@@ -13,18 +14,10 @@ public class HfrRequest {
     /**
      * Represents the operation map for the post or update field.
      */
-    public static final HashMap<String, String> OPERATION_MAP;
-
-    /**
-     * Initializes static members of the {@link HfrRequest} class.
-     */
-    static {
-        OPERATION_MAP = new HashMap<>();
-
-        OPERATION_MAP.put("P", "POST");
-
-        OPERATION_MAP.put("U", "PUT");
-    }
+    public static final HashMap<String, String> OPERATION_MAP = new HashMap<String, String>() {{
+        put("P", "POST");
+        put("U", "PUT");
+    }};
 
     /**
      * The transaction id number from the IL.

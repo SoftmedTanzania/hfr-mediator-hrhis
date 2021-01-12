@@ -5,25 +5,25 @@
 
 An [OpenHIM](http://openhim.org/) mediator for handling system integration  with Health Facility Registry.
 
-# Dev Requirements
+## 1. Dev Requirements
 
 1. Java 1.8
 2. IntelliJ or Visual Studio Code
 3. Maven 3.6.3
 
-# Mediator Configuration
+## 2. Mediator Configuration
 
 This mediator is designed to work with multiple systems that do not require significant message transformations
 or any data validation to the message payload.
 
-## Pre-Deployment
+## 3. Pre-Deployment
 
 **The file contents of `mediator.properties` and `mediator-registration-info.json` must be changed before deployment**
 
 This idea behind this mediator is to deploy the same JAR with a different set of configurations parameters
 based on the system to connect.
 
-### Configuration Parameters
+### 3.1 Configuration Parameters
 The configuration parameters specific to the mediator and destination system can be found at
 
 `src/main/resources/mediator.properties`
@@ -114,7 +114,7 @@ The configuration parameters specific to the mediator and the mediator's metadat
     }
 ```
 
-## Deployment
+## 4. Deployment
 
 To build and run the mediator after performing the above configurations, run the following
 
@@ -123,7 +123,7 @@ To build and run the mediator after performing the above configurations, run the
   java -jar target/hfr-mediator-<version>-jar-with-dependencies.jar
 ```
 
-## Known Integrations
+## 5. Known Integrations
 
 The known integrations for the HFR
 

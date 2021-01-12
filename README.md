@@ -1,29 +1,31 @@
 # Health Facility Registry Mediator
+
 [![Java CI Badge](https://github.com/SoftmedTanzania/hfr-mediator/workflows/Java%20CI%20with%20Maven/badge.svg)](https://github.com/SoftmedTanzania/hfr-mediator/actions?query=workflow%3A%22Java+CI+with+Maven%22)
 [![Coverage Status](https://coveralls.io/repos/github/SoftmedTanzania/hfr-mediator/badge.svg?branch=development)](https://coveralls.io/github/SoftmedTanzania/hfr-mediator?branch=development)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/647b7d4897a443b7af7fd160f148c81b)](https://www.codacy.com/gh/SoftmedTanzania/hfr-mediator/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SoftmedTanzania/hfr-mediator&amp;utm_campaign=Badge_Grade)
 
-An [OpenHIM](http://openhim.org/) mediator for handling system integration  with Health Facility Registry.
+An [OpenHIM](http://openhim.org/) mediator for handling system integration with Health Facility Registry.
 
 ## 1. Dev Requirements
 
- 1. Java 1.8
- 2. IntelliJ or Visual Studio Code
- 3. Maven 3.6.3
+1. Java 1.8
+2. IntelliJ or Visual Studio Code
+3. Maven 3.6.3
 
 ## 2. Mediator Configuration
 
-This mediator is designed to work with multiple systems that do not require significant message transformations
-or any data validation to the message payload.
+This mediator is designed to work with multiple systems that do not require significant message transformations or any
+data validation to the message payload.
 
 ## 3. Pre-Deployment
 
 **The file contents of `mediator.properties` and `mediator-registration-info.json` must be changed before deployment**
 
-This idea behind this mediator is to deploy the same JAR with a different set of configurations parameters
-based on the system to connect.
+This idea behind this mediator is to deploy the same JAR with a different set of configurations parameters based on the
+system to connect.
 
 ### 3.1 Configuration Parameters
+
 The configuration parameters specific to the mediator and destination system can be found at
 
 `src/main/resources/mediator.properties`
@@ -47,7 +49,7 @@ The configuration parameters specific to the mediator and destination system can
     destination.scheme=destination-system-scheme
 ```
 
-The configuration parameters specific to the mediator and the mediator's metadata can be found at 
+The configuration parameters specific to the mediator and the mediator's metadata can be found at
 
 `src/main/resources/mediator-registration-info.json`
 
@@ -127,7 +129,7 @@ To build and run the mediator after performing the above configurations, run the
 
 The known integrations for the HFR
 
- 1. DHIS2
- 2. ELMIS
- 3. EPICOR
- 4. VIMS
+1. DHIS2
+2. ELMIS
+3. EPICOR
+4. VIMS

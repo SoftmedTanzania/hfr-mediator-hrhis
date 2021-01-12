@@ -2,6 +2,8 @@ package tz.go.moh.him.hfr.mediator.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
+import tz.go.moh.him.mediator.core.exceptions.ArgumentNullException;
+import tz.go.moh.him.mediator.core.utils.StringUtils;
 
 /**
  * Represents an acknowledgement.
@@ -35,6 +37,15 @@ public class Ack {
      * @param status              The status.
      */
     public Ack(String transactionIdNumber, String status) {
+
+        if (StringUtils.isNullOrEmpty(transactionIdNumber)) {
+            throw new ArgumentNullException("transactionIdNumber - Value cannot be null");
+        }
+
+        if (StringUtils.isNullOrEmpty(status)) {
+            throw new ArgumentNullException("status - Value cannot be null");
+        }
+
         this.setTransactionIdNumber(transactionIdNumber);
         this.setStatus(status);
     }

@@ -7,9 +7,9 @@ An [OpenHIM](http://openhim.org/) mediator for handling system integration  with
 
 ## 1. Dev Requirements
 
-1. Java 1.8
-2. IntelliJ or Visual Studio Code
-3. Maven 3.6.3
+ 1. Java 1.8
+ 2. IntelliJ or Visual Studio Code
+ 3. Maven 3.6.3
 
 ## 2. Mediator Configuration
 
@@ -127,7 +127,7 @@ To build and run the mediator after performing the above configurations, run the
 
 The known integrations for the HFR
 
-1. DHIS2
-2. ELMIS
-3. EPICOR
-4. VIMS
+ 1. DHIS2
+ 2. ELMIS
+ 3. EPICOR
+ 4. VIMS

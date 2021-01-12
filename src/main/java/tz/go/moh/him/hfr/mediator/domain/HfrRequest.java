@@ -3,7 +3,6 @@ package tz.go.moh.him.hfr.mediator.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 
-import java.lang.reflect.MalformedParameterizedTypeException;
 import java.util.HashMap;
 
 /**

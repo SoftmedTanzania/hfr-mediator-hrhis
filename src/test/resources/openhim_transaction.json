@@ -1,0 +1,35 @@
+{
+  "request": {
+    "host": "127.0.0.1",
+    "port": "5001",
+    "path": "/services_received",
+    "headers": {
+      "content-type": "application/json"
+    },
+    "querystring": "",
+    "body": "{\\r\\n  \\\"Fac_IDNumber\\\":\\\"105651-4\\\",\\r\\n  \\\"Name\\\":\\\"Muhimbili\\\",\\r\\n  \\\"Comm_FacName\\\":\\\"Muhimbili \\\",\\r\\n  \\\"Zone\\\":\\\"Eastern Zone\\\",\\r\\n  \\\"RegionCode\\\":\\\"TZ.ET.DS\\\",\\r\\n  \\\"Region\\\":\\\"Dar es Salaam Region\\\",\\r\\n  \\\"DistrictCode\\\":\\\"TZ.ET.DS.IL\\\",\\r\\n  \\\"District\\\":\\\"Ilala District\\\",\\r\\n  \\\"CouncilCode\\\":\\\"TZ.ET.DS.IL.2\\\",\\r\\n  \\\"Council\\\":\\\"Ilala MC\\\",\\r\\n  \\\"Ward\\\":\\\"Upanga Magharibi\\\",\\r\\n  \\\"VillageMtaa\\\":\\\"Mfaume\\\",\\r\\n  \\\"FacilityTypeGroupCode\\\":\\\"HOSP\\\",\\r\\n  \\\"FacilityTypeGroup\\\":\\\"Hospital\\\",\\r\\n  \\\"FacilityTypeCode\\\":\\\"NAT\\\",\\r\\n  \\\"FacilityType\\\":\\\"National Hospital\\\",\\r\\n  \\\"OwnershipGroupCode\\\":\\\"Publ\\\",\\r\\n  \\\"OwnershipGroup\\\":\\\"Public\\\",\\r\\n  \\\"OwnershipCode\\\":\\\"MoHCDGEC\\\",\\r\\n  \\\"Ownership\\\":\\\"MoHCDGEC\\\",\\r\\n  \\\"OperatingStatus\\\":\\\"Operating\\\",\\r\\n  \\\"Latitude\\\":\\\"-6.801501\\\",\\r\\n  \\\"Longitude\\\":\\\"39.274157\\\",\\r\\n  \\\"RegistrationStatus\\\":\\\"Registered\\\",\\r\\n  \\\"CreatedAt\\\":\\\"2013-08-20T10:44:22.000Z\\\",\\r\\n  \\\"UpdatedAt\\\":\\\"2017-10-27T05:54:48.000Z\\\",\\r\\n  \\\"OSchangeOpenedtoClose\\\":\\\"Y\\\",\\r\\n  \\\"OSchangeClosedtoOperational\\\":\\\"N\\\",\\r\\n  \\\"PostorUpdate\\\":\\\"P\\\"\\r\\n}",
+    "method": "POST",
+    "timestamp": "2021-01-04T06:15:48.662Z"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-openhim-transactionid": "5ff2b29416a3c934156395d3"
+    },
+    "body": "",
+    "timestamp": "2021-01-04T06:15:48.746Z"
+  },
+  "error": null,
+  "childIDs": [],
+  "canRerun": true,
+  "autoRetry": false,
+  "wasRerun": false,
+  "_id": "5ff2b29416a3c934156395d3",
+  "status": "Successful",
+  "clientID": "5fec702016a3c93415637002",
+  "channelID": "5fec6e2416a3c93415636f2d",
+  "clientIP": "197.250.198.31",
+  "routes": [],
+  "orchestrations": [],
+  "__v": 0
+}

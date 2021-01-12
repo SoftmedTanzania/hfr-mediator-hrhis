@@ -30,8 +30,9 @@ public class Ack {
 
     /**
      * Initializes a new instance of the {@link Ack} class.
+     *
      * @param transactionIdNumber The transaction id number.
-     * @param status The status.
+     * @param status              The status.
      */
     public Ack(String transactionIdNumber, String status) {
         this.setTransactionIdNumber(transactionIdNumber);
@@ -40,6 +41,7 @@ public class Ack {
 
     /**
      * Gets the transaction id number.
+     *
      * @return Returns the transaction id number.
      */
     public String getTransactionIdNumber() {
@@ -48,6 +50,7 @@ public class Ack {
 
     /**
      * Sets the transaction id number.
+     *
      * @param transactionIdNumber The transaction id number.
      */
     public void setTransactionIdNumber(String transactionIdNumber) {
@@ -56,6 +59,7 @@ public class Ack {
 
     /**
      * Gets the status.
+     *
      * @return Returns the status.
      */
     public String getStatus() {
@@ -64,6 +68,7 @@ public class Ack {
 
     /**
      * Sets the status.
+     *
      * @param status The status.
      */
     public void setStatus(String status) {

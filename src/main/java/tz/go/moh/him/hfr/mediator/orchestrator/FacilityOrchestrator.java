@@ -5,7 +5,6 @@ import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import com.google.gson.Gson;
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.tuple.Pair;
 import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
@@ -61,12 +60,6 @@ public class FacilityOrchestrator extends UntypedActor {
             Map<String, String> headers = new HashMap<>();
 
             headers.put("Content-Type", "application/json");
-
-            if (Boolean.TRUE.toString().equals(config.getProperty("destination.auth.local.enabled"))) {
-                headers.put("Authorization", String.format("Basic: %s", Base64.encodeBase64String(String.format("%s:%s", config.getProperty("destination.auth.local.username"), config.getProperty("destination.auth.local.password")).getBytes())));
-            } else if (Boolean.TRUE.toString().equals(config.getProperty("destination.auth.external.enabled"))) {
-                headers.put("Authorization", workingRequest.getHeaders().get("Authorization"));
-            }
 
             List<Pair<String, String>> parameters = new ArrayList<>();
 

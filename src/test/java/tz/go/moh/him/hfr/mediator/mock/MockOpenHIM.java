@@ -77,9 +77,7 @@ public class MockOpenHIM extends CoreAPIConnector {
             JSONObject receivedUpdatedTransaction = new JSONObject(((MediatorHTTPRequest) msg).getBody());
 
             Assert.assertEquals(200, receivedUpdatedTransaction.getJSONObject("response").getInt("status"));
-
             Assert.assertEquals("Successful", receivedUpdatedTransaction.getString("status"));
-//                Assert.assertEquals(jsonElmisAckPayload, receivedUpdatedTransaction.getJSONObject("response").getString("body"));
         }
     }
 }

@@ -112,15 +112,17 @@ public class MediatorMain {
      */
     public static void main(String... args) throws Exception {
 
-        //setup actor system
+        // setup actor system
         final ActorSystem system = ActorSystem.create("mediator");
-        //setup logger for main
-        final LoggingAdapter log = Logging.getLogger(system, "main");
+
+        // setup logger for main
+        final LoggingAdapter log = Logging.getLogger(system, MediatorMain.class);
 
         //setup actors
         log.info("Initializing mediator actors...");
 
         String configPath = null;
+
         if (args != null && args.length == 2 && args[0].equals("--conf")) {
             configPath = args[1];
             log.info("Loading mediator configuration from '" + configPath + "'...");
@@ -142,9 +144,11 @@ public class MediatorMain {
         }));
 
         log.info("Starting mediator server...");
+
         server.start();
 
         log.info(String.format("%s listening on %s:%s", config.getName(), config.getServerHost(), config.getServerPort()));
+
         Thread.currentThread().join();
     }
 }

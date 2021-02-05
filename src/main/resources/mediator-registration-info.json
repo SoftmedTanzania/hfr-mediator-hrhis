@@ -1,5 +1,5 @@
 {
-  "urn": "urn:uuid:83c54769-5622-4cec-9f58-ccfc0ad24382",
+  "urn": "urn:uuid:90661DA5-98FA-41D6-8EE3-BFD8C3EFBFBC",
   "version": "0.1.0",
   "name": "HFR Mediator",
   "description": "A mediator for handling sharing of health facilities information from Health Facility Registry to other health information systems",
@@ -7,31 +7,35 @@
     {
       "name": "HFR Mediator Route",
       "host": "localhost",
-      "port": "3003",
+      "port": "3011",
       "path": "/hfr",
       "type": "http"
     },
     {
-      "name": "HFR Mediator Route",
+      "name": "HFR Mediator ACK Route",
       "host": "localhost",
-      "port": "3003",
+      "port": "3011",
       "path": "/hfr-ack",
       "type": "http"
     }
   ],
   "defaultChannelConfig": [
     {
-      "name": "HFR Mediator",
-      "urlPattern": "^/hfr$",
+      "name": "HFR DESTINATION Channel",
+      "urlPattern": "^/hfr-destination$",
+      "description": "A channel for handling messages from HFR to the destination via the HIM",
       "type": "http",
       "allow": [
-        "hfr-mediator"
+        "hfr-client"
+      ],
+      "methods": [
+        "POST"
       ],
       "routes": [
         {
-          "name": "HFR Mediator Route",
+          "name": "HFR Mediator DESTINATION Route",
           "host": "localhost",
-          "port": "3003",
+          "port": "3011",
           "path": "/hfr",
           "type": "http",
           "primary": "true"
@@ -39,20 +43,62 @@
       ]
     },
     {
-      "name": "HFR ACK Mediator",
-      "urlPattern": "^/hfr-ack$",
-      "description": "An OpenHIM mediator for handling acknowledgments",
+      "name": "HFR DESTINATION ACK Channel",
+      "urlPattern": "^/hfr-ack-destination$",
+      "description": "A channel for handling acknowledgments from DESTINATION",
       "type": "http",
       "allow": [
-        "hfr-mediator"
+        "hfr-client"
+      ],
+      "methods": [
+        "POST"
       ],
       "routes": [
         {
-          "name": "ACK",
+          "name": "HFR Mediator DESTINATION ACK Route",
           "host": "localhost",
-          "port": "3003",
+          "port": "3011",
           "path": "/hfr-ack",
-          "type": "http"
+          "type": "http",
+          "primary": "true"
+        }
+      ]
+    }
+  ],
+  "configDefs": [
+    {
+      "param": "destinationConnectionProperties",
+      "displayName": "Destination Connection Properties",
+      "description": "Configuration to set the hostname, port and path for the destination server",
+      "type": "struct",
+      "template": [
+        {
+          "param": "destinationHost",
+          "displayName": "Destination Host Name",
+          "description": "IP address/hostname of the destination server. e.g 192.168.1.1",
+          "type": "string"
+        },
+        {
+          "param": "destinationPort",
+          "displayName": "Destination Port Number",
+          "description": "The port number of the destination server. e.g 8080",
+          "type": "number"
+        },
+        {
+          "param": "destinationPath",
+          "displayName": "Destination Path",
+          "description": "The destination path for receiving of data from the HIM. eg /hdr",
+          "type": "string"
+        },
+        {
+          "param": "destinationScheme",
+          "displayName": "Destination Scheme",
+          "description": "Whether the destination is using HTTP or HTTPS requests",
+          "type": "option",
+          "values": [
+            "http",
+            "https"
+          ]
         }
       ]
     }

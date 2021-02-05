@@ -6,6 +6,7 @@ import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import com.google.gson.Gson;
 import org.apache.commons.lang3.tuple.Pair;
+import org.json.JSONObject;
 import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPResponse;
@@ -69,8 +70,31 @@ public class FacilityOrchestrator extends UntypedActor {
 
             hfrRequest.setTransactionIdNumber(workingRequest.getHeaders().get("x-openhim-transactionid"));
 
+            String host;
+            int port;
+            String path;
+            String scheme;
+
+            if (config.getDynamicConfig().isEmpty()) {
+                log.debug("Dynamic config is empty, using config from mediator.properties");
+
+                host = config.getProperty("destination.host");
+                port = Integer.parseInt(config.getProperty("destination.port"));
+                path = config.getProperty("destination.path");
+                scheme = config.getProperty("destination.scheme");
+            } else {
+                log.debug("Using dynamic config");
+
+                JSONObject destinationProperties = new JSONObject(config.getDynamicConfig()).getJSONObject("destinationConnectionProperties");
+
+                host = destinationProperties.getString("destinationHost");
+                port = destinationProperties.getInt("destinationPort");
+                path = destinationProperties.getString("destinationPath");
+                scheme = destinationProperties.getString("destinationScheme");
+            }
+
             MediatorHTTPRequest request = new MediatorHTTPRequest(workingRequest.getRequestHandler(), getSelf(), "Sending data", HfrRequest.OPERATION_MAP.get(hfrRequest.getPostOrUpdate()),
-                    config.getProperty("destination.scheme"), config.getProperty("destination.host"), Integer.parseInt(config.getProperty("destination.api.port")), config.getProperty("destination.api.path"),
+                    scheme, host, port, path,
                     gson.toJson(hfrRequest), headers, parameters);
 
             ActorSelection httpConnector = getContext().actorSelection(config.userPathFor("http-connector"));

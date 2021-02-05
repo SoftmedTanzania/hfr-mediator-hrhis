@@ -35,7 +35,7 @@ public class AcknowledgementOrchestrator extends UntypedActor {
     private final MediatorConfig config;
 
     /**
-     * Represents an EPICOR ACK.
+     * Represents an ACK.
      */
     private Ack ack;
 

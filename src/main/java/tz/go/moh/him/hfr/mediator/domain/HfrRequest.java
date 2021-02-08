@@ -89,7 +89,7 @@ public class HfrRequest {
      */
     @JsonProperty("Village")
     @SerializedName("Village")
-    private String villageMtaa;
+    private String village;
     /**
      * The facility type group.
      */
@@ -287,12 +287,12 @@ public class HfrRequest {
         this.ward = ward;
     }
 
-    public String getVillageMtaa() {
-        return villageMtaa;
+    public String getVillage() {
+        return village;
     }
 
-    public void setVillageMtaa(String villageMtaa) {
-        this.villageMtaa = villageMtaa;
+    public void setVillage(String village) {
+        this.village = village;
     }
 
     public String getFacilityTypeGroup() {

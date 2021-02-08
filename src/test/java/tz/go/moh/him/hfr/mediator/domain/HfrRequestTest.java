@@ -40,7 +40,7 @@ public class HfrRequestTest {
         Assert.assertEquals("Muhimbili", hfrRequest.getName());
         Assert.assertEquals("Muhimbili ", hfrRequest.getCommonFacilityName());
         Assert.assertEquals("Eastern Zone", hfrRequest.getZone());
-        Assert.assertEquals("Mfaume", hfrRequest.getVillageMtaa());
+        Assert.assertEquals("Mfaume", hfrRequest.getVillage());
         Assert.assertEquals("Upanga Magharibi", hfrRequest.getWard());
         Assert.assertEquals("Ilala MC", hfrRequest.getCouncil());
         Assert.assertEquals("-6.801501", hfrRequest.getLatitude());
@@ -80,9 +80,9 @@ public class HfrRequestTest {
         request.setRegionCode("Test Region Code");
         request.setRegistrationStatus("Registered");
         request.setUpdatedAt("2017-10-28T05:54:48.000Z");
-        request.setVillageMtaa("Test Village Name");
+        request.setVillage("Test Village Name");
         request.setWard("Test Ward");
-        request.setVillageMtaa("Test Village");
+        request.setVillage("Test Village");
         request.setZone("Test Zone");
 
         Gson gson = new Gson();
@@ -116,7 +116,7 @@ public class HfrRequestTest {
         Assert.assertTrue(actual.contains(request.getRegionCode()));
         Assert.assertTrue(actual.contains(request.getRegistrationStatus()));
         Assert.assertTrue(actual.contains(request.getUpdatedAt()));
-        Assert.assertTrue(actual.contains(request.getVillageMtaa()));
+        Assert.assertTrue(actual.contains(request.getVillage()));
         Assert.assertTrue(actual.contains(request.getWard()));
         Assert.assertTrue(actual.contains(request.getZone()));
     }

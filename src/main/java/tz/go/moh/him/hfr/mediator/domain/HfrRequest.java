@@ -141,7 +141,7 @@ public class HfrRequest {
     /**
      * The operating status.
      */
-    @JsonProperty("OperatingStat us")
+    @JsonProperty("OperatingStatus")
     @SerializedName("OperatingStatus")
     private String operatingStatus;
     /**

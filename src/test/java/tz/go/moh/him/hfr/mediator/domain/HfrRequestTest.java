@@ -79,7 +79,6 @@ public class HfrRequestTest {
         request.setRegion("Test Region");
         request.setRegionCode("Test Region Code");
         request.setRegistrationStatus("Registered");
-        request.setTransactionIdNumber("A519A929-D02E-4731-8853-8F636CB63F76");
         request.setUpdatedAt("2017-10-28T05:54:48.000Z");
         request.setVillageMtaa("Test Village Name");
         request.setWard("Test Ward");
@@ -116,7 +115,6 @@ public class HfrRequestTest {
         Assert.assertTrue(actual.contains(request.getRegion()));
         Assert.assertTrue(actual.contains(request.getRegionCode()));
         Assert.assertTrue(actual.contains(request.getRegistrationStatus()));
-        Assert.assertTrue(actual.contains(request.getTransactionIdNumber()));
         Assert.assertTrue(actual.contains(request.getUpdatedAt()));
         Assert.assertTrue(actual.contains(request.getVillageMtaa()));
         Assert.assertTrue(actual.contains(request.getWard()));

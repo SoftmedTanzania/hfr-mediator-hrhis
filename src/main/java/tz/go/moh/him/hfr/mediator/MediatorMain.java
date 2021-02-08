@@ -6,7 +6,6 @@ import akka.event.LoggingAdapter;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.openhim.mediator.engine.*;
-import tz.go.moh.him.hfr.mediator.orchestrator.AcknowledgementOrchestrator;
 import tz.go.moh.him.hfr.mediator.orchestrator.FacilityOrchestrator;
 
 import java.io.File;
@@ -35,7 +34,6 @@ public class MediatorMain {
         RoutingTable routingTable = new RoutingTable();
 
         routingTable.addRoute("/hfr", FacilityOrchestrator.class);
-        routingTable.addRoute("/hfr-ack", AcknowledgementOrchestrator.class);
 
         return routingTable;
     }
@@ -77,6 +75,7 @@ public class MediatorMain {
         config.setServerPort(Integer.parseInt(config.getProperty("mediator.port")));
         config.setRootTimeout(Integer.parseInt(config.getProperty("mediator.timeout")));
 
+        config.setCoreAPIScheme(config.getProperty("core.scheme"));
         config.setCoreHost(config.getProperty("core.host"));
         config.setCoreAPIUsername(config.getProperty("core.api.user"));
         config.setCoreAPIPassword(config.getProperty("core.api.password"));

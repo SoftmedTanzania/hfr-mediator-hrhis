@@ -10,13 +10,6 @@
       "port": "3011",
       "path": "/hfr",
       "type": "http"
-    },
-    {
-      "name": "HFR Mediator ACK Route",
-      "host": "localhost",
-      "port": "3011",
-      "path": "/hfr-ack",
-      "type": "http"
     }
   ],
   "defaultChannelConfig": [
@@ -37,28 +30,6 @@
           "host": "localhost",
           "port": "3011",
           "path": "/hfr",
-          "type": "http",
-          "primary": "true"
-        }
-      ]
-    },
-    {
-      "name": "HFR DESTINATION ACK Channel",
-      "urlPattern": "^/hfr-ack-destination$",
-      "description": "A channel for handling acknowledgments from DESTINATION",
-      "type": "http",
-      "allow": [
-        "hfr-client"
-      ],
-      "methods": [
-        "POST"
-      ],
-      "routes": [
-        {
-          "name": "HFR Mediator DESTINATION ACK Route",
-          "host": "localhost",
-          "port": "3011",
-          "path": "/hfr-ack",
           "type": "http",
           "primary": "true"
         }
@@ -87,18 +58,30 @@
         {
           "param": "destinationPath",
           "displayName": "Destination Path",
-          "description": "The destination path for receiving of data from the HIM. eg /hdr",
+          "description": "The destination path for receiving data from the HIM. eg /hdr",
           "type": "string"
         },
         {
           "param": "destinationScheme",
           "displayName": "Destination Scheme",
-          "description": "Whether the destination is using HTTP or HTTPS requests",
+          "description": "Whether the destination is using HTTP or HTTPS requests.",
           "type": "option",
           "values": [
             "http",
             "https"
           ]
+        },
+        {
+          "param": "destinationUsername",
+          "displayName": "Destination Username",
+          "description": "The destination username for receiving data from the HIM.",
+          "type": "string"
+        },
+        {
+          "param": "destinationPassword",
+          "displayName": "Destination Password",
+          "description": "The destination password for receiving data from the HIM.",
+          "type": "password"
         }
       ]
     }

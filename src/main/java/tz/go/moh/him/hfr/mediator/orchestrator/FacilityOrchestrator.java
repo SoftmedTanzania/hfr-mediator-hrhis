@@ -68,8 +68,6 @@ public class FacilityOrchestrator extends UntypedActor {
 
             HfrRequest hfrRequest = gson.fromJson(workingRequest.getBody(), HfrRequest.class);
 
-            hfrRequest.setTransactionIdNumber(workingRequest.getHeaders().get("x-openhim-transactionid"));
-
             String host;
             int port;
             String path;

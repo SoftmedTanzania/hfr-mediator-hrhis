@@ -19,12 +19,6 @@ public class HfrRequest {
     }};
 
     /**
-     * The transaction id number from the IL.
-     */
-    @JsonProperty("IL_IDNumber")
-    @SerializedName("IL_IDNumber")
-    private String transactionIdNumber;
-    /**
      * The facility id number.
      */
     @JsonProperty("Fac_IDNumber")
@@ -57,8 +51,8 @@ public class HfrRequest {
     /**
      * The region code.
      */
-    @JsonProperty("RegionCode")
-    @SerializedName("RegionCode")
+    @JsonProperty("Region_Code")
+    @SerializedName("Region_Code")
     private String regionCode;
     /**
      * The district.
@@ -69,8 +63,8 @@ public class HfrRequest {
     /**
      * The district code.
      */
-    @JsonProperty("DistrictCode")
-    @SerializedName("DistrictCode")
+    @JsonProperty("District_Code")
+    @SerializedName("District_Code")
     private String districtCode;
     /**
      * The council.
@@ -81,8 +75,8 @@ public class HfrRequest {
     /**
      * The council code.
      */
-    @JsonProperty("CouncilCode")
-    @SerializedName("CouncilCode")
+    @JsonProperty("Council_Code")
+    @SerializedName("Council_Code")
     private String councilCode;
     /**
      * The ward.
@@ -93,9 +87,9 @@ public class HfrRequest {
     /**
      * The village street.
      */
-    @JsonProperty("VillageMtaa")
-    @SerializedName("VillageMtaa")
-    private String villageMtaa;
+    @JsonProperty("Village")
+    @SerializedName("Village")
+    private String village;
     /**
      * The facility type group.
      */
@@ -293,12 +287,12 @@ public class HfrRequest {
         this.ward = ward;
     }
 
-    public String getVillageMtaa() {
-        return villageMtaa;
+    public String getVillage() {
+        return village;
     }
 
-    public void setVillageMtaa(String villageMtaa) {
-        this.villageMtaa = villageMtaa;
+    public void setVillage(String village) {
+        this.village = village;
     }
 
     public String getFacilityTypeGroup() {
@@ -435,13 +429,5 @@ public class HfrRequest {
 
     public void setPostOrUpdate(String postOrUpdate) {
         this.postOrUpdate = postOrUpdate;
-    }
-
-    public String getTransactionIdNumber() {
-        return transactionIdNumber;
-    }
-
-    public void setTransactionIdNumber(String transactionIdNumber) {
-        this.transactionIdNumber = transactionIdNumber;
     }
 }

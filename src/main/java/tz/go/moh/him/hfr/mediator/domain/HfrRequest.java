@@ -51,8 +51,8 @@ public class HfrRequest {
     /**
      * The region code.
      */
-    @JsonProperty("RegionCode")
-    @SerializedName("RegionCode")
+    @JsonProperty("Region_Code")
+    @SerializedName("Region_Code")
     private String regionCode;
     /**
      * The district.
@@ -63,8 +63,8 @@ public class HfrRequest {
     /**
      * The district code.
      */
-    @JsonProperty("DistrictCode")
-    @SerializedName("DistrictCode")
+    @JsonProperty("District_Code")
+    @SerializedName("District_Code")
     private String districtCode;
     /**
      * The council.
@@ -75,8 +75,8 @@ public class HfrRequest {
     /**
      * The council code.
      */
-    @JsonProperty("CouncilCode")
-    @SerializedName("CouncilCode")
+    @JsonProperty("Council_Code")
+    @SerializedName("Council_Code")
     private String councilCode;
     /**
      * The ward.
@@ -87,8 +87,8 @@ public class HfrRequest {
     /**
      * The village street.
      */
-    @JsonProperty("VillageMtaa")
-    @SerializedName("VillageMtaa")
+    @JsonProperty("Village")
+    @SerializedName("Village")
     private String villageMtaa;
     /**
      * The facility type group.
@@ -141,7 +141,7 @@ public class HfrRequest {
     /**
      * The operating status.
      */
-    @JsonProperty("OperatingStatus")
+    @JsonProperty("OperatingStat us")
     @SerializedName("OperatingStatus")
     private String operatingStatus;
     /**

@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.http.HttpHeaders;
 import org.json.JSONObject;
 import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
@@ -100,7 +101,7 @@ public class FacilityOrchestrator extends UntypedActor {
                 // we want to add the username and password as the Basic Auth header in the HTTP request
                 if (username != null && !"".equals(username) && password != null && !"".equals(password))
                 {
-                    headers.put("Authorization", "Basic " + Base64.encodeBase64URLSafeString((username + ":" + password).getBytes()));
+                    headers.put(HttpHeaders.AUTHORIZATION, "Basic " + Base64.encodeBase64URLSafeString((username + ":" + password).getBytes()));
                 }
             }
 

@@ -5,6 +5,7 @@ import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import com.google.gson.Gson;
+import com.sun.deploy.net.URLEncoder;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.http.HttpHeaders;
@@ -14,6 +15,7 @@ import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPResponse;
 import tz.go.moh.him.hfr.mediator.domain.HfrRequest;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,8 +77,8 @@ public class FacilityOrchestrator extends UntypedActor {
             int port;
             String path;
             String scheme;
-            String username;
-            String password;
+            String username = "";
+            String password="";
 
             if (config.getDynamicConfig().isEmpty()) {
                 log.debug("Dynamic config is empty, using config from mediator.properties");
@@ -112,7 +114,7 @@ public class FacilityOrchestrator extends UntypedActor {
                 }
             }
 
-            host=scheme+"://"+host+path;
+            host=scheme+"://"+host+":"+port+path;
 
             MediatorHTTPRequest request = new MediatorHTTPRequest(workingRequest.getRequestHandler(), getSelf(), "Sending data","POST",
                     host, gson.toJson(hfrRequest), headers, parameters);

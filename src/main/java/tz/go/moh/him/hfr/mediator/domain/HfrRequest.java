@@ -11,14 +11,6 @@ import java.util.HashMap;
 public class HfrRequest {
 
     /**
-     * Represents the operation map for the post or update field.
-     */
-    public static final HashMap<String, String> OPERATION_MAP = new HashMap<String, String>() {{
-        put("P", "POST");
-        put("U", "PUT");
-    }};
-
-    /**
      * The facility id number.
      */
     @JsonProperty("Fac_IDNumber")

@@ -14,6 +14,7 @@ import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPResponse;
 import tz.go.moh.him.hfr.mediator.domain.HfrRequest;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -101,6 +102,11 @@ public class FacilityOrchestrator extends UntypedActor {
                 if (username != null && !"".equals(username) && password != null && !"".equals(password))
                 {
                     headers.put(HttpHeaders.AUTHORIZATION, "Basic " + Base64.encodeBase64URLSafeString((username + ":" + password).getBytes()));
+                    String auth = username + ":" + password;
+                    byte[] encodedAuth = Base64.encodeBase64(
+                            auth.getBytes(StandardCharsets.ISO_8859_1));
+                    String authHeader = "Basic " + new String(encodedAuth);
+                    headers.put(HttpHeaders.AUTHORIZATION, authHeader);
                 }
             }
 

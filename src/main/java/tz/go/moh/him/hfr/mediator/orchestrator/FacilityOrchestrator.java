@@ -75,8 +75,8 @@ public class FacilityOrchestrator extends UntypedActor {
             int port;
             String path;
             String scheme;
-            String username;
-            String password;
+            String username = "";
+            String password = "";
 
             if (config.getDynamicConfig().isEmpty()) {
                 log.debug("Dynamic config is empty, using config from mediator.properties");
@@ -112,9 +112,9 @@ public class FacilityOrchestrator extends UntypedActor {
                 }
             }
 
-            host=scheme+"://"+host+path;
+            host = scheme + "://" + host + ":" + port + path;
 
-            MediatorHTTPRequest request = new MediatorHTTPRequest(workingRequest.getRequestHandler(), getSelf(), "Sending data","POST",
+            MediatorHTTPRequest request = new MediatorHTTPRequest(workingRequest.getRequestHandler(), getSelf(), "Sending data", "POST",
                     host, gson.toJson(hfrRequest), headers, parameters);
 
             ActorSelection httpConnector = getContext().actorSelection(config.userPathFor("http-connector"));

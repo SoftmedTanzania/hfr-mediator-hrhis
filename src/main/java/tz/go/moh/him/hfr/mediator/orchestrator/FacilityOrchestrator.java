@@ -102,10 +102,8 @@ public class FacilityOrchestrator extends UntypedActor {
                     // if we have a username and a password
                     // we want to add the username and password as the Basic Auth header in the HTTP request
                     if (username != null && !"".equals(username) && password != null && !"".equals(password)) {
-                        headers.put(HttpHeaders.AUTHORIZATION, "Basic " + Base64.encodeBase64URLSafeString((username + ":" + password).getBytes()));
                         String auth = username + ":" + password;
-                        byte[] encodedAuth = Base64.encodeBase64(
-                                auth.getBytes(StandardCharsets.ISO_8859_1));
+                        byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(StandardCharsets.ISO_8859_1));
                         String authHeader = "Basic " + new String(encodedAuth);
                         headers.put(HttpHeaders.AUTHORIZATION, authHeader);
                     }

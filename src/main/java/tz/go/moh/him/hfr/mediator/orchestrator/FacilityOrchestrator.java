@@ -5,7 +5,9 @@ import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import com.google.gson.Gson;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.http.HttpHeaders;
 import org.json.JSONObject;
 import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
@@ -60,7 +62,7 @@ public class FacilityOrchestrator extends UntypedActor {
 
             Map<String, String> headers = new HashMap<>();
 
-            headers.put("Content-Type", "application/json");
+            headers.put(HttpHeaders.CONTENT_TYPE, "application/json");
 
             List<Pair<String, String>> parameters = new ArrayList<>();
 
@@ -72,6 +74,8 @@ public class FacilityOrchestrator extends UntypedActor {
             int port;
             String path;
             String scheme;
+            String username;
+            String password;
 
             if (config.getDynamicConfig().isEmpty()) {
                 log.debug("Dynamic config is empty, using config from mediator.properties");
@@ -89,6 +93,15 @@ public class FacilityOrchestrator extends UntypedActor {
                 port = destinationProperties.getInt("destinationPort");
                 path = destinationProperties.getString("destinationPath");
                 scheme = destinationProperties.getString("destinationScheme");
+                username = destinationProperties.getString("destinationUsername");
+                password = destinationProperties.getString("destinationPassword");
+
+                // if we have a username and a password
+                // we want to add the username and password as the Basic Auth header in the HTTP request
+                if (username != null && !"".equals(username) && password != null && !"".equals(password))
+                {
+                    headers.put(HttpHeaders.AUTHORIZATION, "Basic " + Base64.encodeBase64URLSafeString((username + ":" + password).getBytes()));
+                }
             }
 
             MediatorHTTPRequest request = new MediatorHTTPRequest(workingRequest.getRequestHandler(), getSelf(), "Sending data", HfrRequest.OPERATION_MAP.get(hfrRequest.getPostOrUpdate()),

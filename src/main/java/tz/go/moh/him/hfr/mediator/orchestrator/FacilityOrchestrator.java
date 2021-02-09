@@ -6,7 +6,6 @@ import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import com.google.gson.Gson;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.http.HttpHeaders;
 import org.json.JSONObject;
@@ -63,7 +62,7 @@ public class FacilityOrchestrator extends UntypedActor {
 
             Map<String, String> headers = new HashMap<>();
 
-            headers.put("Content-Type", "application/json");
+            headers.put(HttpHeaders.CONTENT_TYPE, "application/json");
 
             List<Pair<String, String>> parameters = new ArrayList<>();
 

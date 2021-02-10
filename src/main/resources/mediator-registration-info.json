@@ -7,7 +7,7 @@
     {
       "name": "HFR Mediator HRHIS Route",
       "host": "139.162.149.249",
-      "port": "3003",
+      "port": "3015",
       "path": "/hfr",
       "type": "http"
     }
@@ -28,7 +28,7 @@
         {
           "name": "HFR Mediator HRHIS Route",
           "host": "139.162.149.249",
-          "port": "3003",
+          "port": "3015",
           "path": "/hfr",
           "type": "http",
           "primary": "true"

@@ -33,7 +33,7 @@ The configuration parameters specific to the mediator and destination system can
 ```
     mediator.name=HFR-Mediator
     mediator.host=localhost
-    mediator.port=3003
+    mediator.port=3015
     mediator.timeout=60000
     mediator.heartbeats=true
     
@@ -63,14 +63,14 @@ The configuration parameters specific to the mediator and the mediator's metadat
         {
           "name": "HFR Mediator Route",
           "host": "localhost",
-          "port": "3003",
+          "port": "3015",
           "path": "/hfr",
           "type": "http"
         },
         {
           "name": "HFR Mediator Route",
           "host": "localhost",
-          "port": "3003",
+          "port": "3015",
           "path": "/hfr-ack",
           "type": "http"
         }
@@ -87,7 +87,7 @@ The configuration parameters specific to the mediator and the mediator's metadat
             {
               "name": "HFR Mediator Route",
               "host": "localhost",
-              "port": "3003",
+              "port": "3015",
               "path": "/hfr",
               "type": "http",
               "primary": "true"
@@ -106,7 +106,7 @@ The configuration parameters specific to the mediator and the mediator's metadat
             {
               "name": "ACK",
               "host": "localhost",
-              "port": "3003",
+              "port": "3015",
               "path": "/hfr-ack",
               "type": "http"
             }

@@ -1,8 +1,8 @@
 # Health Facility Registry Mediator
 
-[![Java CI Badge](https://github.com/SoftmedTanzania/hfr-mediator/workflows/Java%20CI%20with%20Maven/badge.svg)](https://github.com/SoftmedTanzania/hfr-mediator/actions?query=workflow%3A%22Java+CI+with+Maven%22)
-[![Coverage Status](https://coveralls.io/repos/github/SoftmedTanzania/hfr-mediator/badge.svg?branch=development)](https://coveralls.io/github/SoftmedTanzania/hfr-mediator?branch=development)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/647b7d4897a443b7af7fd160f148c81b)](https://www.codacy.com/gh/SoftmedTanzania/hfr-mediator/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SoftmedTanzania/hfr-mediator&amp;utm_campaign=Badge_Grade)
+[![Java CI Badge](https://github.com/SoftmedTanzania/hfr-mediator-hrhis/workflows/Java%20CI%20with%20Maven/badge.svg)](https://github.com/SoftmedTanzania/hfr-mediator-hrhis/actions?query=workflow%3A%22Java+CI+with+Maven%22)
+[![Coverage Status](https://coveralls.io/repos/github/SoftmedTanzania/hfr-mediator-hrhis/badge.svg?branch=development)](https://coveralls.io/github/SoftmedTanzania/hfr-mediator-hrhis?branch=development)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/990f14d05bf448ef9038330e566d502a)](https://www.codacy.com/gh/SoftmedTanzania/hfr-mediator-hrhis/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SoftmedTanzania/hfr-mediator-hrhis&amp;utm_campaign=Badge_Grade)
 
 An [OpenHIM](http://openhim.org/) mediator for handling system integration with Health Facility Registry.
 
@@ -33,7 +33,7 @@ The configuration parameters specific to the mediator and destination system can
 ```
     mediator.name=HFR-Mediator
     mediator.host=localhost
-    mediator.port=3003
+    mediator.port=3015
     mediator.timeout=60000
     mediator.heartbeats=true
     
@@ -63,14 +63,14 @@ The configuration parameters specific to the mediator and the mediator's metadat
         {
           "name": "HFR Mediator Route",
           "host": "localhost",
-          "port": "3003",
+          "port": "3015",
           "path": "/hfr",
           "type": "http"
         },
         {
           "name": "HFR Mediator Route",
           "host": "localhost",
-          "port": "3003",
+          "port": "3015",
           "path": "/hfr-ack",
           "type": "http"
         }
@@ -87,7 +87,7 @@ The configuration parameters specific to the mediator and the mediator's metadat
             {
               "name": "HFR Mediator Route",
               "host": "localhost",
-              "port": "3003",
+              "port": "3015",
               "path": "/hfr",
               "type": "http",
               "primary": "true"
@@ -106,7 +106,7 @@ The configuration parameters specific to the mediator and the mediator's metadat
             {
               "name": "ACK",
               "host": "localhost",
-              "port": "3003",
+              "port": "3015",
               "path": "/hfr-ack",
               "type": "http"
             }
@@ -124,12 +124,3 @@ To build and run the mediator after performing the above configurations, run the
   mvn clean package -DskipTests=true -e source:jar javadoc:jar
   java -jar target/hfr-mediator-<version>-jar-with-dependencies.jar
 ```
-
-## 5. Known Integrations
-
-The known integrations for the HFR
-
-1. DHIS2
-2. ELMIS
-3. EPICOR
-4. VIMS

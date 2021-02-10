@@ -1,4 +1,4 @@
-package tz.go.moh.him.hfr.mediator.domain;
+package tz.go.moh.him.hfr.mediator.hrhis.domain;
 
 import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;

@@ -5,9 +5,9 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.testing.MockHTTPConnector;
-import tz.go.moh.him.hfr.mediator.domain.HfrRequest;
-import tz.go.moh.him.hfr.mediator.domain.HrhisMessage;
-import tz.go.moh.him.hfr.mediator.orchestrator.FacilityOrchestratorOrchestratorTest;
+import tz.go.moh.him.hfr.mediator.hrhis.domain.HfrRequest;
+import tz.go.moh.him.hfr.mediator.hrhis.domain.HrhisMessage;
+import tz.go.moh.him.hfr.mediator.hrhis.orchestrator.FacilityOrchestratorOrchestratorTest;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -7,7 +7,7 @@ import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.connectors.CoreAPIConnector;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPResponse;
-import tz.go.moh.him.hfr.mediator.orchestrator.BaseOrchestratorTest;
+import tz.go.moh.him.hfr.mediator.hrhis.orchestrator.BaseOrchestratorTest;
 
 import java.io.IOException;
 import java.io.InputStream;

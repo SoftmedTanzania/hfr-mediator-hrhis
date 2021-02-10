@@ -1,4 +1,4 @@
-package tz.go.moh.him.hfr.mediator.orchestrator;
+package tz.go.moh.him.hfr.mediator.hrhis.orchestrator;
 
 import akka.actor.ActorSelection;
 import akka.actor.UntypedActor;
@@ -12,8 +12,8 @@ import org.json.JSONObject;
 import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPResponse;
-import tz.go.moh.him.hfr.mediator.domain.HfrRequest;
-import tz.go.moh.him.hfr.mediator.domain.HrhisMessage;
+import tz.go.moh.him.hfr.mediator.hrhis.domain.HfrRequest;
+import tz.go.moh.him.hfr.mediator.hrhis.domain.HrhisMessage;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;

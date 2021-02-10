@@ -1,22 +1,22 @@
 {
-  "urn": "urn:uuid:90661DA5-98FA-41D6-8EE3-BFD8C3EFBFBC",
+  "urn": "urn:uuid:db1ca140-6aba-11eb-ae79-0b50bc061441",
   "version": "0.1.0",
-  "name": "HFR Mediator",
+  "name": "HFR Mediator HRHIS",
   "description": "A mediator for handling sharing of health facilities information from Health Facility Registry to other health information systems",
   "endpoints": [
     {
-      "name": "HFR Mediator Route",
-      "host": "localhost",
-      "port": "3011",
+      "name": "HFR Mediator HRHIS Route",
+      "host": "139.162.149.249",
+      "port": "3003",
       "path": "/hfr",
       "type": "http"
     }
   ],
   "defaultChannelConfig": [
     {
-      "name": "HFR DESTINATION Channel",
-      "urlPattern": "^/hfr-destination$",
-      "description": "A channel for handling messages from HFR to the destination via the HIM",
+      "name": "HFR HRHIS Channel",
+      "urlPattern": "^/hfr-hrhis",
+      "description": "A channel for handling messages from HFR to HRHIS via the HIM",
       "type": "http",
       "allow": [
         "hfr-client"
@@ -26,9 +26,9 @@
       ],
       "routes": [
         {
-          "name": "HFR Mediator DESTINATION Route",
-          "host": "localhost",
-          "port": "3011",
+          "name": "HFR Mediator HRHIS Route",
+          "host": "139.162.149.249",
+          "port": "3003",
           "path": "/hfr",
           "type": "http",
           "primary": "true"
@@ -58,30 +58,18 @@
         {
           "param": "destinationPath",
           "displayName": "Destination Path",
-          "description": "The destination path for receiving data from the HIM. eg /hdr",
+          "description": "The destination path for receiving of data from the HIM. eg /hdr",
           "type": "string"
         },
         {
           "param": "destinationScheme",
           "displayName": "Destination Scheme",
-          "description": "Whether the destination is using HTTP or HTTPS requests.",
+          "description": "Whether the destination is using HTTP or HTTPS requests",
           "type": "option",
           "values": [
             "http",
             "https"
           ]
-        },
-        {
-          "param": "destinationUsername",
-          "displayName": "Destination Username",
-          "description": "The destination username for receiving data from the HIM.",
-          "type": "string"
-        },
-        {
-          "param": "destinationPassword",
-          "displayName": "Destination Password",
-          "description": "The destination password for receiving data from the HIM.",
-          "type": "password"
         }
       ]
     }

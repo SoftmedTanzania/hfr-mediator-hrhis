@@ -124,12 +124,3 @@ To build and run the mediator after performing the above configurations, run the
   mvn clean package -DskipTests=true -e source:jar javadoc:jar
   java -jar target/hfr-mediator-<version>-jar-with-dependencies.jar
 ```
-
-## 5. Known Integrations
-
-The known integrations for the HFR
-
-1. DHIS2
-2. ELMIS
-3. EPICOR
-4. VIMS

@@ -13,6 +13,7 @@ import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPResponse;
 import tz.go.moh.him.hfr.mediator.domain.HfrRequest;
+import tz.go.moh.him.hfr.mediator.domain.HrhisMessage;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -113,7 +114,7 @@ public class FacilityOrchestrator extends UntypedActor {
             host = scheme + "://" + host + ":" + port + path;
 
             MediatorHTTPRequest request = new MediatorHTTPRequest(workingRequest.getRequestHandler(), getSelf(), "Sending data", "POST",
-                    host, gson.toJson(hfrRequest), headers, parameters);
+                    host, gson.toJson(convertToHRHISPayload(hfrRequest)), headers, parameters);
 
             ActorSelection httpConnector = getContext().actorSelection(config.userPathFor("http-connector"));
             httpConnector.tell(request, getSelf());
@@ -123,5 +124,49 @@ public class FacilityOrchestrator extends UntypedActor {
         } else {
             unhandled(msg);
         }
+    }
+
+    public HrhisMessage convertToHRHISPayload(HfrRequest hfrRequest) {
+        HrhisMessage hrhisMessage = new HrhisMessage();
+        hrhisMessage.setName(hfrRequest.getName());
+        hrhisMessage.setCode(hfrRequest.getFacilityIdNumber());
+        hrhisMessage.setShortName(hfrRequest.getName());
+
+
+        hrhisMessage.setCoordinates("[" + hfrRequest.getLatitude() +","+ hfrRequest.getLongitude() + "]");
+
+        //hrhisPayload.put("description",hfrPayload.get("Name"));
+
+        hrhisMessage.setActive(hfrRequest.getOperatingStatus().equals("Operating"));
+
+        //Adding parent to the payload
+        Map<String, Object> parent = new HashMap<String, Object>();
+        parent.put("code", hfrRequest.getCouncilCode());
+        hrhisMessage.setParent(parent);
+
+        //Adding organisation unit codes
+        List<Map<String, Object>> organisationUnitGroups = new ArrayList<Map<String, Object>>();
+        //Adding hfr facility type group code
+        Map<String, Object> facilityTypeGroupCode = new HashMap<String, Object>();
+        facilityTypeGroupCode.put("code", hfrRequest.getFacilityTypeGroupCode());
+        organisationUnitGroups.add(facilityTypeGroupCode);
+
+        //Adding hfr facility type code
+        Map<String, Object> facilityTypeCode = new HashMap<String, Object>();
+        facilityTypeCode.put("code", hfrRequest.getFacilityTypeCode());
+        organisationUnitGroups.add(facilityTypeCode);
+
+        //Adding hfr ownership code
+        Map<String, Object> ownershipCode = new HashMap<String, Object>();
+        ownershipCode.put("code", hfrRequest.getOwnershipCode());
+        organisationUnitGroups.add(ownershipCode);
+
+        //Adding hfr ownership group code
+        Map<String, Object> ownershipGroupCode = new HashMap<String, Object>();
+        ownershipGroupCode.put("code", hfrRequest.getOwnershipGroupCode());
+        organisationUnitGroups.add(ownershipGroupCode);
+
+        hrhisMessage.setOrganisationUnitGroups(organisationUnitGroups);
+        return hrhisMessage;
     }
 }

@@ -1,0 +1,24 @@
+{
+  "code": "105651-4",
+  "name": "Muhimbili",
+  "shortName": "Muhimbili",
+  "active": true,
+  "parent": {
+    "code":"TZ.ET.DS.IL.2"
+  },
+  "coordinates": "[-6.801501,39.274157]",
+  "organisationUnitGroups": [
+    {
+      "code":"HOSP"
+    },
+    {
+      "code":"NAT"
+    },
+    {
+      "code":"Publ"
+    },
+    {
+      "code":"MoHCDGEC"
+    }
+  ]
+}

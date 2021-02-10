@@ -128,7 +128,7 @@ public class FacilityOrchestrator extends UntypedActor {
 
     public HrhisMessage convertToHRHISPayload(HfrRequest hfrRequest) {
         HrhisMessage hrhisMessage = new HrhisMessage();
-        hrhisMessage.setName(hfrRequest.getName());
+        hrhisMessage.setName(hfrRequest.getName()+" "+hfrRequest.getFacilityType());
         hrhisMessage.setCode(hfrRequest.getFacilityIdNumber());
         hrhisMessage.setShortName(hfrRequest.getName());
 

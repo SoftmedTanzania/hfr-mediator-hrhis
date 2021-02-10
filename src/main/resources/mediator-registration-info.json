@@ -6,9 +6,16 @@
   "endpoints": [
     {
       "name": "HFR Mediator HRHIS Route",
-      "host": "139.162.149.249",
+      "host": "localhost",
       "port": "3015",
       "path": "/hfr",
+      "type": "http"
+    },
+    {
+      "name": "HFR Inbound Request Route",
+      "host": "localhost",
+      "port": "3015",
+      "path": "/hfr-inbound",
       "type": "http"
     }
   ],
@@ -27,7 +34,7 @@
       "routes": [
         {
           "name": "HFR Mediator HRHIS Route",
-          "host": "139.162.149.249",
+          "host": "localhost",
           "port": "3015",
           "path": "/hfr",
           "type": "http",

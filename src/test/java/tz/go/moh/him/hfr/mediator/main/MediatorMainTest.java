@@ -3,7 +3,7 @@ package tz.go.moh.him.hfr.mediator.main;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openhim.mediator.engine.MediatorConfig;
-import tz.go.moh.him.hfr.mediator.MediatorMain;
+import tz.go.moh.him.hfr.mediator.hrhis.MediatorMain;
 
 import java.lang.reflect.Method;
 

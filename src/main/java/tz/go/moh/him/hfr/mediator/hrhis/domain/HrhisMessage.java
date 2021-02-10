@@ -1,4 +1,4 @@
-package tz.go.moh.him.hfr.mediator.domain;
+package tz.go.moh.him.hfr.mediator.hrhis.domain;
 
 import java.util.List;
 import java.util.Map;

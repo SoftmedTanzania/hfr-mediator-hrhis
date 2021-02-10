@@ -1,4 +1,4 @@
-package tz.go.moh.him.hfr.mediator.orchestrator;
+package tz.go.moh.him.hfr.mediator.hrhis.orchestrator;
 
 import akka.actor.UntypedActor;
 import org.apache.http.HttpStatus;
